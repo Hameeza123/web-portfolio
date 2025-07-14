@@ -460,6 +460,223 @@
       transition: opacity 1.2s, transform 1.2s;
       will-change: transform, opacity;
     }
+
+    /* ===== MOBILE RESPONSIVE DESIGN ===== */
+    @media (max-width: 768px) {
+      /* Hero Section Mobile */
+      h1 {
+        font-size: 3rem !important;
+        margin: 0.3em 0 0.1em 0 !important;
+      }
+
+      #type-animation {
+        font-size: 1.8rem !important;
+      }
+
+      .typed-cursor {
+        font-size: 1.8rem !important;
+        height: 1.8rem !important;
+      }
+
+      nav a {
+        margin: 0 0.5rem !important;
+        font-size: 1rem !important;
+      }
+
+      /* Content Wrapper Mobile */
+      .content-wrapper {
+        padding: 0 1rem !important;
+      }
+
+      .section-title {
+        font-size: 2.2rem !important;
+        margin-bottom: 1.5rem !important;
+      }
+
+      /* Welcome Section Mobile */
+      .welcome-icon {
+        font-size: 3rem !important;
+      }
+
+      .welcome-text {
+        font-size: 1.5rem !important;
+      }
+
+      .scroll-indicator {
+        font-size: 1.5rem !important;
+      }
+
+      /* About Section Mobile */
+      .about-content {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        text-align: center !important;
+      }
+
+      .about-text {
+        text-align: center !important;
+      }
+
+      .about-text p {
+        font-size: 1rem !important;
+        margin-bottom: 1rem !important;
+      }
+
+      .about-stats {
+        flex-direction: row !important;
+        justify-content: space-around !important;
+        gap: 1rem !important;
+      }
+
+      .stat-number {
+        font-size: 2rem !important;
+      }
+
+      .stat-label {
+        font-size: 0.8rem !important;
+      }
+
+      /* Experience Section Mobile */
+      .experience-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+      }
+
+      .experience-card {
+        padding: 1.5rem !important;
+      }
+
+      .exp-icon {
+        font-size: 2.5rem !important;
+      }
+
+      /* Projects Section Mobile */
+      .projects-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+      }
+
+      .project-card {
+        padding: 1.5rem !important;
+      }
+
+      .project-icon {
+        font-size: 2.5rem !important;
+      }
+
+      .project-tags {
+        justify-content: center !important;
+      }
+
+      /* Skills Section Mobile */
+      .skills-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+      }
+
+      .skill-category h3 {
+        font-size: 1rem !important;
+      }
+
+      .skill-item {
+        padding: 0.6rem !important;
+        font-size: 0.9rem !important;
+      }
+
+      /* Grid Background Mobile */
+      .grid-background {
+        background-size: 30px 30px !important;
+      }
+    }
+
+    /* iPhone SE and smaller phones */
+    @media (max-width: 375px) {
+      h1 {
+        font-size: 2.5rem !important;
+      }
+
+      #type-animation {
+        font-size: 1.5rem !important;
+      }
+
+      .typed-cursor {
+        font-size: 1.5rem !important;
+        height: 1.5rem !important;
+      }
+
+      nav a {
+        margin: 0 0.3rem !important;
+        font-size: 0.9rem !important;
+      }
+
+      .section-title {
+        font-size: 1.8rem !important;
+      }
+
+      .about-stats {
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+      }
+
+      .skills-container {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    /* Landscape orientation on mobile */
+    @media (max-width: 768px) and (orientation: landscape) {
+      .hero-section {
+        height: 100vh !important;
+      }
+
+      h1 {
+        font-size: 2.5rem !important;
+        margin: 0.2em 0 0.1em 0 !important;
+      }
+
+      #type-animation {
+        font-size: 1.5rem !important;
+      }
+
+      .typed-cursor {
+        font-size: 1.5rem !important;
+        height: 1.5rem !important;
+      }
+
+      nav {
+        margin-top: 1rem !important;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 1.5rem !important;
+      }
+
+      .about-text {
+        text-align: left !important;
+      }
+
+      .skills-container {
+        grid-template-columns: repeat(4, 1fr) !important;
+      }
+    }
+
+    /* Touch-friendly improvements */
+    @media (hover: none) and (pointer: coarse) {
+      .experience-card:hover,
+      .project-card:hover {
+        transform: none !important;
+      }
+
+      .skill-item:hover {
+        background: rgba(143, 214, 167, 0.2) !important;
+        color: #8fd6a7 !important;
+      }
+
+      nav a {
+        padding: 0.5rem 0.3rem !important;
+      }
+    }
   </style>
   <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 </head>
