@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hamza Hussain | Portfolio</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+</head>
+<body>
+  <main>
+    <h1 id="site-title" style="font-size: 4.5rem; margin: 0; font-family: 'Fira Code', monospace; color: #e0e0e0; cursor:pointer;">
+      Hamza
+    </h1>
+    <div id="type-animation-container">
+      <span id="type-animation"></span>
+    </div>
+    <nav>
+      <a href="#" data-tab="about">About</a>
+      <a href="#" data-tab="projects">Projects</a>
+      <a href="#" data-tab="experience">Experience</a>
+      <a href="#" data-tab="contact">Contact</a>
+    </nav>
+  </main>
+
+  <section id="about" class="tab-content" data-aos="fade-up" style="display:none;">
+    <div class="tab-inner">
+      <p>
+        I’m a junior at NYU Tandon & Courant, majoring in Applied Mathematics & Physics (GPA 4.0) with a focus on quantum technology. My work bridges computational physics, plasma optimization, and data-driven modeling. I’m passionate about using math, code, and quantum science to solve complex problems and create meaningful change.
+      </p>
+    </div>
+  </section>
+
+  <section id="projects" class="tab-content" style="display:none;" data-aos="fade-up">
+    <div class="tab-inner">
+      <div class="projects-list">
+        <div class="project-card project-row" data-aos="fade-right">
+          <i class="fas fa-chart-line project-icon"></i>
+          <div class="project-info">
+            <h3>Quantum Portfolio Optimizer</h3>
+            <p>Developed a quantum portfolio-optimization solver (VQE & QAOA) in Python, outperforming classical benchmarks.</p>
+            <a href="https://github.com/Hameeza123" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+        <div class="project-card project-row" data-aos="fade-right">
+          <i class="fas fa-syringe project-icon"></i>
+          <div class="project-info">
+            <h3>Vaccination Modeling</h3>
+            <p>Modeled vaccination behavior with differential equations and data-driven parameters in MATLAB as part of the SCUDEM math modeling competition competition.</p>
+            <a href="https://github.com/Hameeza123" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+        <div class="project-card project-row" data-aos="fade-right">
+          <i class="fas fa-box-open project-icon"></i>
+          <div class="project-info">
+            <h3>Supply Chain Bin Packing</h3>
+            <p>Built a Qiskit-based bin-packing solution to optimize supply-chain packaging and reduce emissions.</p>
+            <a href="https://github.com/Hameeza123" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+        <div class="project-card project-row" data-aos="fade-right">
+          <i class="fas fa-heartbeat project-icon"></i>
+          <div class="project-info">
+            <h3>Cardiac MRI Phase Detection</h3>
+            <p>Published deep-learning research on cardiac MRI image registration (<a href="https://arxiv.org/abs/2209.05778" target="_blank">arXiv:2209.05778</a>).</p>
+            <a href="https://github.com/Hameeza123" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="tab-content" style="display:none;" data-aos="fade-up">
+    <div class="tab-inner">
+      <div class="exp-list">
+        <div class="exp-item" data-aos="fade-up">
+          <strong>NYU Plasma Physics Group, Courant</strong> — Researcher<br>
+          <ul>
+            <li>Researching fluid dynamics and stellarator optimization with the Simsopt framework and NYU Greene supercomputer.</li>
+            <li>Developing robust, stochastic methods for plasma coil design.</li>
+          </ul>
+        </div>
+        <div class="exp-item" data-aos="fade-up">
+          <strong>Pickle</strong> — Data Science & Engineering Intern<br>
+          <ul>
+            <li>Built SQL/Pandas-powered dashboards and tools for a healthcare job platform, boosting data visibility and reporting.</li>
+            <li>Analyzed 20,000+ monthly data entries to guide product decisions.</li>
+          </ul>
+        </div>
+        <div class="exp-item" data-aos="fade-up">
+          <strong>VinUniversity</strong> — Researcher<br>
+          <ul>
+            <li>Modeled smart-city traffic flow with Digital Twin technology, reducing congestion in Hanoi’s Hoàn Kiếm District by 20%.</li>
+            <li>Presented simulation results to VinFast’s engineering team.</li>
+          </ul>
+        </div>
+        <div class="exp-item" data-aos="fade-up">
+          <strong>UT Southwestern Medical Center</strong> — Intern<br>
+          <ul>
+            <li>Optimized MATLAB PDE models for cardiovascular research, reducing heart volume-tracking runtime from 8 hours to 5 minutes.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="tab-content" style="display:none;" data-aos="fade-up">
+    <div class="tab-inner">
+      <ul class="contact-list">
+        <li>Email: <a href="mailto:hamzahussain@nyu.edu">hamzahussain@nyu.edu</a></li>
+        <li>GitHub: <a href="https://github.com/Hameeza123" target="_blank">github.com/Hameeza123</a></li>
+        <li>LinkedIn: <a href="https://linkedin.com/in/hamza-hussain" target="_blank">linkedin.com/in/hamza-hussain</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- <footer>
+    <p>&copy; 2025 Hamza Hussain</p>
+  </footer> -->
+
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    var typed = new Typed('#type-animation', {
+      strings: [
+        "Mathematician",
+        "Physicist",
+        "Musician",
+        "Baller"
+      ],
+      typeSpeed: 50,
+      backSpeed: 30,
+      backDelay: 1500,
+      startDelay: 500,
+      loop: true
+    });
+    function hideAllTabs() {
+      document.querySelectorAll('.tab-content').forEach(sec => {
+        sec.style.display = 'none';
+      });
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    }
+    document.querySelectorAll('nav a[data-tab]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        hideAllTabs();
+        this.classList.add('active');
+        const tab = this.getAttribute('data-tab');
+        var sec = document.getElementById(tab);
+        if (sec) sec.style.display = 'block';
+        AOS.refresh();
+      });
+    });
+    document.getElementById('site-title').addEventListener('click', function() {
+      hideAllTabs();
+    });
+    hideAllTabs(); // Hide all tabs on load
+    AOS.init();
+  </script>
+  <script>
+    // Bubble trail configuration
+    const BUBBLE_CONFIG = {
+      frequency: 0.7,        // Controls how often bubbles spawn (0.1 = rare, 1.0 = every move)
+      minSize: 5,            // Minimum bubble size in pixels
+      maxSize: 12,           // Maximum bubble size in pixels
+      minDistance: 10,       // Minimum drift distance
+      maxDistance: 25        // Maximum drift distance
+    };
+
+    let lastMouseX = null;
+    let lastMouseY = null;
+
+    // 1) Set up the listener
+    window.addEventListener('mousemove', e => {
+      // Control frequency - only create bubbles sometimes
+      if (Math.random() > BUBBLE_CONFIG.frequency) return;
+
+      // 2) Create a bubble
+      const dot = document.createElement('div');
+      dot.className = 'mouse-trail-dot';
+      document.body.appendChild(dot);
+
+      // 3) Random size for variety
+      const size = BUBBLE_CONFIG.minSize + Math.random() * (BUBBLE_CONFIG.maxSize - BUBBLE_CONFIG.minSize);
+      dot.style.width = size + 'px';
+      dot.style.height = size + 'px';
+
+      // 4) Position at cursor (offset by half the size)
+      dot.style.left = (e.clientX - size/2) + 'px';
+      dot.style.top  = (e.clientY - size/2) + 'px';
+
+      // 5) Calculate movement direction based on mouse movement
+      let angle = Math.random() * Math.PI * 2; // fallback: random
+      if (lastMouseX !== null && lastMouseY !== null) {
+        const dx = e.clientX - lastMouseX;
+        const dy = e.clientY - lastMouseY;
+        if (dx !== 0 || dy !== 0) {
+          angle = Math.atan2(dy, dx);
+        }
+      }
+
+      // Add small random spread for organic look
+      const spread = (Math.random() - 0.5) * (Math.PI / 6); // +/- 30 degrees
+      const finalAngle = angle + spread;
+
+      // 6) Compute distance based on movement direction
+      const distance = BUBBLE_CONFIG.minDistance + Math.random() * (BUBBLE_CONFIG.maxDistance - BUBBLE_CONFIG.minDistance);
+      const moveX = Math.cos(finalAngle) * distance;
+      const moveY = Math.sin(finalAngle) * distance;
+
+      // 7) On the next frame, apply movement + fade
+      requestAnimationFrame(() => {
+        dot.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        dot.style.opacity   = '0';
+      });
+
+      // 8) Remove after transition finishes (~1s)
+      dot.addEventListener('transitionend', () => dot.remove());
+
+      // Store current position for next frame
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+    });
+  </script>
+</body>
+</html>
