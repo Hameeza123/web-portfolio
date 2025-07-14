@@ -1,10 +1,12 @@
+/* ===== MAIN BODY STYLES ===== */
 body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(45deg,#043110, #9ba06e,#75a16f, #68959c, #344362);
+  /* Animated background gradient - green to blue tones */
+  /* background: linear-gradient(45deg,#376a2a, #9ba06e,#75a16f, #68959c, #344362); */
   background-size: 400% 400%;
   animation: gradientShift 8s ease infinite;
-  color: #e0e0e0;
+  color: #e0e0e0; /* Light gray text color */
   font-family: 'Fira Code', monospace;
 }
 
@@ -14,8 +16,9 @@ body {
   100% { background-position: 0% 50%; }
 }
 
+/* ===== LAYOUT STRUCTURE ===== */
 main {
-  height: 100vh;
+  height: 120vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,43 +28,49 @@ main {
   overflow: hidden;
 }
 
+/* ===== TYPOGRAPHY ===== */
 h1 {
   font-size: 4.5rem;
   margin: 0;
-  color: #e0e0e0;
+  color: rgba(196, 217, 255, 0.82); /* Light blue with transparency */
 }
 
+/* ===== NAVIGATION ===== */
 nav {
   margin-top: 2rem;
   margin-bottom: 0.5rem;
   position: relative;
   z-index: 20;
 }
+
 nav a {
   margin: 0rem;
   text-decoration: none;
-  color: #e0e0e0;
+  color: #e0e0e0; /* Light gray navigation text */
   position: relative;
   padding-bottom: 2px;
 }
+
 nav a::after {
   content: '';
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 2px;
+  height: 1.5px;
   width: 0;
-  background: #e0e0e0;
+  background: #ffffff; /* White underline on hover */
   transition: width 0.3s;
 }
+
 nav a:hover::after {
   width: 100%;
 }
 
 nav a.active {
-  border-bottom: 2px solid #8fd6a7;
+  border-bottom: 1.5px solid #f0f0f0; /* Red underline for active nav */
 }
 
+/* ===== CONTENT SECTIONS ===== */
 .tab-content {
   position: absolute;
   left: 0;
@@ -88,6 +97,7 @@ section h2 {
   display: none;
 }
 
+/* ===== PROJECT CARDS ===== */
 .projects-list {
   display: flex;
   flex-direction: column;
@@ -104,7 +114,7 @@ section h2 {
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3); /* Semi-transparent black background */
   padding: 20px;
   border-radius: 8px;
   box-sizing: border-box;
@@ -112,7 +122,7 @@ section h2 {
 
 .project-icon {
   font-size: 3.5rem;
-  color: #8fd6a7;
+  color: #8fd6a7; /* Light green project icons */
   margin-right: 2rem;
   flex-shrink: 0;
   align-self: center;
@@ -122,6 +132,7 @@ section h2 {
   flex: 1 1 0;
 }
 
+/* ===== EXPERIENCE LIST ===== */
 .exp-list {
   display: flex;
   flex-direction: column;
@@ -133,35 +144,33 @@ section h2 {
   padding: 0;
 }
 
+/* ===== CONTACT LIST ===== */
 .contact-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
+
 .contact-list li {
   margin-bottom: 0.5rem;
 }
 
-/* footer {
-  text-align: center;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.1);
-} */
-
+/* ===== TYPED ANIMATION ===== */
 #type-animation {
   font-size: 2.5rem;
-  /* color: #e0e0e0; */
+  /* Gradient text effect - gold to light gray */
   background: linear-gradient(90deg, #e1cd9a, #e2e3bd, #e0e0e0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text; /* for Firefox */
-  text-fill-color: transparent;  font-family: 'Fira Code', monospace;
+  text-fill-color: transparent;
+  font-family: 'Fira Code', monospace;
   font-weight: bold;
 }
 
 .typed-cursor {
   font-size: 2.5rem;
-  color: #e0e0e0;
+  color: #e0e0e0; /* Light gray cursor */
   line-height: 1;
   height: 2.5rem;
   display: inline-block;
@@ -170,6 +179,159 @@ section h2 {
 @keyframes blink-caret {
   from, to { border-color: transparent; }
   50% { border-color: #e0e0e0; }
+}
+
+/* ===== TAGLINE ===== */
+.tagline {
+  font-size: 1.25rem;
+  opacity: 0.8;
+  margin-top: 0.5rem;
+}
+
+/* ===== PROJECT GRID ===== */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.project-card h3 {
+  margin-top: 0;
+}
+
+.project-card a {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #e0e0e0; /* Light gray project links */
+}
+
+#contact a {
+  color: #e0e0e0; /* Light gray contact links */
+  text-decoration: none;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.1); /* Very light black background */
+}
+
+/* ===== PROJECT ROW LAYOUT ===== */
+.project-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== MOUSE TRAIL EFFECTS ===== */
+.mouse-trail-dot {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  pointer-events: none;
+  /* Light green to blue gradient for mouse trail */
+  background: radial-gradient(circle at 60% 40%, #d2e8d9cc 60%, #07a3bb44 100%);
+  box-shadow: 0 0 24px #8fd6a755; /* Green glow effect */
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 1s, transform 1s;
+  mix-blend-mode: lighten;
+  will-change: transform, opacity;
+}
+
+.background-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ===== HERO SECTION COLORS ===== */
+.hero-title {
+  color: rgba(219, 231, 247, 0.82); /* Light blue hero title */
+}
+
+.hero-tagline {
+  /* Gold to light gray gradient for hero tagline */
+  background: linear-gradient(90deg, #e1cd9a, #e2e3bd, #e0e0e0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+/* ===== NAVIGATION COLORS ===== */
+.nav-labels {
+  color: rgba(255, 255, 255, 0.8); /* Semi-transparent white nav labels */
+}
+
+.nav-labels:hover {
+  color: rgb(103, 158, 188); /* Blue hover color for nav */
+}
+
+.nav-labels::after {
+  background: #ffffff; /* White underline for nav hover */
+}
+
+.nav-labels.active {
+  border-bottom: 2px solid #ededed; /* Light gray active nav underline */
+}
+
+/* ===== PAGE BACKGROUND GRADIENTS ===== */
+/* Each page has a unique gradient that flows into the next */
+.page-welcome {
+  /* Dark blue to green transition */
+  background: linear-gradient(180deg, rgba(20,24,32,1) 0%, #2a4237 100%);
+}
+
+.page-about {
+  /* Green to darker green transition */
+  background: linear-gradient(180deg, #2a4237 0%, #3a5a4a 100%);
+}
+
+.page-experience {
+  /* Darker green to medium green transition */
+  background: linear-gradient(180deg, #3a5a4a 0%, #4a6b5a 100%);
+}
+
+.page-projects {
+  /* Medium green to brown transition */
+  background: linear-gradient(180deg, #4a6b5a 0%, #6b5a4a 100%);
+}
+
+.page-skills {
+  /* Brown to lighter brown transition */
+  background: linear-gradient(180deg, #6b5a4a 0%, #8b7a6a 100%);
+}
+
+/* ===== WATER SIMULATION COLORS ===== */
+/* CSS custom properties for water gradient - from surface to deep */
+:root {
+  --water-gradient-stop1: rgba(89, 137, 154, 0.35); /* Surface - very transparent blue-green */
+  --water-gradient-stop2: rgba(60, 80, 100, 0.55); /* 20% down - semi-transparent blue-gray */
+  --water-gradient-stop3: rgba(36, 51, 65, 0.75);  /* 45% down - more opaque dark blue */
+  --water-gradient-stop4: rgba(27, 35, 43, 0.85);  /* 70% down - mostly opaque dark */
+  --water-gradient-stop5: rgba(25, 28, 36, 0.92);  /* 85% down - nearly opaque */
+  --water-gradient-stop6: rgba(20, 24, 32, 1);     /* Bottom - completely opaque dark */
+}
+
+/* ===== BUBBLE EFFECT COLORS ===== */
+.bubble {
+  /* Light blue bubble with radial gradient */
+  background: radial-gradient(circle at 60% 40%, rgba(200, 230, 255, 0.8) 60%, rgba(120, 180, 220, 0.27) 100%);
+  box-shadow: 0 0 24px rgba(180, 220, 255, 0.33); /* Blue glow around bubbles */
 }
   
 
