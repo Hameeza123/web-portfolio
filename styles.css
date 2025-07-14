@@ -38,7 +38,7 @@ nav {
   z-index: 20;
 }
 nav a {
-  margin: 0 1rem;
+  margin: 0rem;
   text-decoration: none;
   color: #e0e0e0;
   position: relative;
@@ -182,7 +182,7 @@ section h2 {
     margin-top: 2rem;
   }
   nav a {
-    margin: 0 1.2rem;
+    margin: 0 0.35rem;
     font-size: 1.1rem;
     text-decoration: none;
     color: #e0e0e0;
