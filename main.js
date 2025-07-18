@@ -91,7 +91,7 @@ function initThreeStars() {
   container.appendChild(renderer.domElement);
 
   // Create stars with size variation using multiple materials
-  const STAR_COUNT = 2000;
+  const STAR_COUNT = 1200;
   const positions = new Float32Array(STAR_COUNT * 3);
   const colors = new Float32Array(STAR_COUNT * 3);
   const twinkles = new Float32Array(STAR_COUNT);
@@ -107,7 +107,7 @@ function initThreeStars() {
     positions[i3 + 2] = 0 
   
     // y: uniform in the top 30% of [-16,16]
-    let yFrac = Math.abs(gaussianRandom(0, 0.5));     
+    let yFrac = Math.abs(gaussianRandom(0, 0.6));     
     positions[i3 + 1] = 7.6 - 4*yFrac
     
     // white colour
@@ -115,17 +115,16 @@ function initThreeStars() {
     colors[i3 + 1] = 1;
     colors[i3 + 2] = 1;
   
-    // Assign random size group (0=small, 1=medium, 2=large)
-    starSizes[i] = Math.floor(Math.random() * 3);
+    // Assign random size group (0=small, 1=medium)
+    starSizes[i] = Math.floor(Math.random() * 2);
   
     // twinkle phase
     twinkles[i] = Math.random() * Math.PI * 2;
   }
 
-  // Create materials for different star sizes - each star gets its own material
+  // Create materials for different star sizes - only small and medium
   const smallMaterials = [];
   const mediumMaterials = [];
-  const largeMaterials = [];
 
   // Create individual materials for each star
   for (let i = 0; i < STAR_COUNT; i++) {
@@ -142,20 +141,9 @@ function initThreeStars() {
         opacity: 1.0,
         blending: THREE.AdditiveBlending
       }));
-    } else if (sizeGroup === 1) {
+    } else {
       mediumMaterials.push(new THREE.PointsMaterial({
         size: 0.8, // HEREEEEEEEEEE HERO STAR MEDIUM SIZE
-        vertexColors: true,
-        transparent: true,
-        map: createCircleTexture(),
-        alphaTest: 0.01,
-        sizeAttenuation: false,
-        opacity: 1.0,
-        blending: THREE.AdditiveBlending
-      }));
-    } else {
-      largeMaterials.push(new THREE.PointsMaterial({
-        size: 3.0, // HEREEEEEEEEEE HERO STAR LARGE SIZE
         vertexColors: true,
         transparent: true,
         map: createCircleTexture(),
@@ -176,13 +164,6 @@ function initThreeStars() {
   const mediumColors = [];
   const mediumTwinkles = [];
 
-  const largePositions = [];
-  const largeColors = [];
-  const largeTwinkles = [];
-
-  // Store references for animation
-  let smallGeometry, mediumGeometry, largeGeometry;
-
   for (let i = 0; i < STAR_COUNT; i++) {
     const i3 = i * 3;
     const sizeGroup = starSizes[i];
@@ -192,23 +173,17 @@ function initThreeStars() {
       smallPositions.push(positions[i3], positions[i3 + 1], positions[i3 + 2]);
       smallColors.push(colors[i3], colors[i3 + 1], colors[i3 + 2]);
       smallTwinkles.push(twinkles[i]);
-    } else if (sizeGroup === 1) {
+    } else {
       // Medium stars
       mediumPositions.push(positions[i3], positions[i3 + 1], positions[i3 + 2]);
       mediumColors.push(colors[i3], colors[i3 + 1], colors[i3 + 2]);
       mediumTwinkles.push(twinkles[i]);
-    } else {
-      // Large stars
-      largePositions.push(positions[i3], positions[i3 + 1], positions[i3 + 2]);
-      largeColors.push(colors[i3], colors[i3 + 1], colors[i3 + 2]);
-      largeTwinkles.push(twinkles[i]);
     }
   }
 
   // Create individual star objects
   const smallStars = [];
   const mediumStars = [];
-  const largeStars = [];
 
   // Create small stars
   for (let i = 0; i < smallPositions.length / 3; i++) {
@@ -236,18 +211,7 @@ function initThreeStars() {
     mediumStars.push(star);
   }
 
-  // Create large stars
-  for (let i = 0; i < largePositions.length / 3; i++) {
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array([
-      largePositions[i * 3], largePositions[i * 3 + 1], largePositions[i * 3 + 2]
-    ]), 3));
-    geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array([1, 1, 1]), 3));
-    
-    const star = new THREE.Points(geometry, largeMaterials[i]);
-    scene.add(star);
-    largeStars.push(star);
-  }
+
 
   // Debug output
   console.log('Hero stars created:', STAR_COUNT);
@@ -284,15 +248,7 @@ function initThreeStars() {
       mediumMaterials[i].opacity = finalAlpha;
     }
     
-    // Animate large stars
-    for (let i = 0; i < largeStars.length; i++) {
-      largeTwinkles[i] += 0.02; // Same speed as top page
-      const alpha = 0.5 + 0.5 * Math.sin(largeTwinkles[i]); // Smooth fade (0.0 to 1.0)
-      const fade = 1 - (largePositions[i * 3 + 1] / 8);
-      const finalAlpha = Math.max(0.0, alpha * fade); // Can go completely transparent
-      
-      largeMaterials[i].opacity = finalAlpha;
-    }
+
     
     renderer.render(scene, camera);
   }
@@ -334,7 +290,7 @@ function initThreeTopStars() {
     const i3 = i * 3;
     positions[i3] = (Math.random() - 0.5) * 48; // x
     positions[i3 + 1] = (Math.random() - 0.5) * 32; // y (full height)
-    positions[i3 + 2] = (Math.random() - 0.5) * 32; // z
+    positions[i3 + 2] = 1 + Math.random() * 6; // z (random between 1 and 8)
     
     // Size based on Y position - smaller stars at bottom, larger at top
     const yPos = positions[i3 + 1];
@@ -350,17 +306,15 @@ function initThreeTopStars() {
         (0.1 + Math.random() * 0.1) : // 70% small (0.1 to 0.2)
         (0.3 + Math.random() * 0.2);  // 30% medium (0.3 to 0.5)
     } else if (normalizedY < 0.95) {
-      // Top 25% (excluding top 5%) - all sizes allowed
+      // Top 25% (excluding top 5%) - only small and medium stars
       const rand = Math.random();
-      if (rand < 0.5) {
-        starSize = 0.1 + Math.random() * 0.1; // 50% small (0.1 to 0.2)
-      } else if (rand < 0.8) {
-        starSize = 0.3 + Math.random() * 0.2; // 30% medium (0.3 to 0.5)
+      if (rand < 0.7) {
+        starSize = 0.1 + Math.random() * 0.1; // 70% small (0.1 to 0.2)
       } else {
-        starSize = 0.6 + Math.random() * 0.4; // 20% large (0.6 to 1.0)
+        starSize = 0.3 + Math.random() * 0.2; // 30% medium (0.3 to 0.5)
       }
     } else {
-      // Top 5% - only small and medium stars (no large)
+      // Top 5% - only small and medium stars
       const rand = Math.random();
       if (rand < 0.7) {
         starSize = 0.1 + Math.random() * 0.1; // 70% small (0.1 to 0.2)
@@ -497,4 +451,12 @@ document.addEventListener('DOMContentLoaded', () => {
   hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('active');
   });
+  
+  // Auto-scroll to hero section on page load
+  setTimeout(() => {
+    const heroSection = document.querySelector('.hero-section');
+    if (heroSection) {
+      heroSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, 100);
 }); 
