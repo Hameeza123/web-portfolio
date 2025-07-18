@@ -22,19 +22,25 @@ function initScrollAnimations() {
 
 // --- Typed.js animation for tagline ---
 function initTypedAnimation() {
-  var typed = new Typed('#type-animation', {
+  var options = {
     strings: [
-      "Mathematician",
-      "Physicist", 
-      "Musician",
-      "Baller"
+      'Hamza',
+      'حمزة',
+      'Хамза',
+      'হামজা',
+      // '哈姆扎', // Chinese
+      '함자',   // Korean
+      'Sa Lâm'
     ],
-    typeSpeed: 50,
-    backSpeed: 30,
-    backDelay: 1500,
-    startDelay: 500,
-    loop: true
-  });
+    typeSpeed: 70,
+    backSpeed: 40,
+    backDelay: 1400,
+    loop: true,
+    showCursor: true,
+    cursorChar: '|',
+    smartBackspace: false
+  };
+  var typed = new Typed('#type-animation', options);
 }
 
 // --- Export functions ---

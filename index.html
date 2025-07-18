@@ -10,9 +10,6 @@
       margin: 0;
       padding: 0;
       line-height: 1;
-      background: linear-gradient(120deg, #10151a, #181c24, #1a1e2b, #181c24, #10151a);
-      background-size: 400% 400%;
-      animation: bg-rotate 18s ease-in-out infinite;
       color: rgba(120,180,255,0.82);
       font-family: 'Fira Code', monospace;
       scroll-behavior: smooth;
@@ -41,11 +38,14 @@
       border: none !important;
     }
     .fullpage-section {
-      margin-top: -1px !important;
       color: #fff;
     }
     
     /* Page Background Gradients */
+    .page-top {
+      background: linear-gradient(180deg, #000 0%, #1d232b 100%);
+    }
+
     .page-welcome {
       background: linear-gradient(180deg, rgba(20,24,32,1) 0%, #2a4237 100%);
     }
@@ -72,7 +72,11 @@
       width: 100vw;
       height: 100vh;
       margin: 0;
-      background: #182222;
+      background: linear-gradient(180deg, #1d232b 0%,#2a2339 70%, #5a3f19 100%);
+      background: linear-gradient(180deg, #bccadc 0%,#8ab5d4 70%, #315f86 100%);
+      background: linear-gradient(180deg, #e7d49b 0%,#95400e 70%, #3b290f 100%);
+
+
       border: none;
       box-shadow: none;
       pointer-events: auto;
@@ -145,7 +149,7 @@
       display: inline-block;
     }
     /* Grid background for hero section */
-    .grid-background {
+    /* .grid-background {
       position: absolute;
       top: 0;
       left: 0;
@@ -159,7 +163,7 @@
       -webkit-mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.638) 0%, rgba(255, 255, 255, 0.444) 80%, transparent 90%);
       z-index: 5;
       pointer-events: none;
-    }
+    } */
     /* Content Wrapper and Section Titles */
     .content-wrapper {
       max-width: 900px;
@@ -678,6 +682,7 @@
       }
     }
   </style>
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
   <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
   <script src="fluid-simulation.js"></script>
   <script src="droplets.js"></script>
@@ -687,30 +692,52 @@
   <script src="main.js"></script>
 </head>
 <body>
+  <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1 1"
+  style="position:absolute; width:0; height:0"
+>
+    <defs>
+      <clipPath id="waveClip" clipPathUnits="objectBoundingBox">
+        <path
+        d="
+        M0,0 
+        H1 
+        V0.85
+        C0.95,0.7 0.85,0.95 0.75,0.7
+        C0.65,0.5 0.55,1 0.45,0.8
+        C0.35,0.5 0.25,0.9 0.15,0.95
+        C0.10,1 0.05,0.65 0,0.95 Z
+        "
+
+      
+        />
+      </clipPath>
+    </defs>
+  </svg>
+  <div class="hamburger-menu">
+    <img src="luffy_fruit.png" alt="Luffy Fruit" class="hamburger-icon">
+  </div>
+  <nav class="top-navbar">
+    <ul class="nav-menu"><li><a href="#about">about</a></li><li><a href="#projects"><span class="desktop-text">projects</span><span class="mobile-text">prjcts</span></a></li><li><a href="#glass">GLASS</a></li><li><a href="#experience"><span class="desktop-text">experience</span><span class="mobile-text">exps</span></a></li><li><a href="#contact">contact</a></li></ul>
+  </nav>
+  <section class="fullpage-section page-top">
+    <div id="star-canvas-top"></div>
+  </section>
+
   <section class="hero-section">
+    <div id="star-canvas"></div>
     <div class="grid-background"></div>
     <canvas id="fluid-canvas"></canvas>
     <div class="centered">
-      <h1 class="hero-title">Hamza</h1>
-      <div id="type-animation-container"><span id="type-animation" class="hero-tagline"></span></div>
-      <nav style="margin-top: 2rem;">
-        <a href="#about" class="nav-labels">About</a>
-        <a href="#experience" class="nav-labels">Experience</a>
-        <a href="#projects" class="nav-labels">Projects</a>
-        <a href="#skills" class="nav-labels">Skills</a>
-      </nav>
+      <div class="hero-intro">
+        <div class="intro-text">Hi, my name is</div>
+        <div class="name-animation"><span id="type-animation" class="hero-tagline"></span></div>
+      </div>
     </div>
   </section>
 
   <section class="fullpage-section page-welcome">
-    <div class="content-wrapper">
-      <h2 class="section-title">Welcome</h2>
-      <div class="welcome-content">
-        <div class="welcome-icon">🚀</div>
-        <p class="welcome-text">Ready to explore?</p>
-        <div class="scroll-indicator">↓</div>
-      </div>
-    </div>
   </section>
 
   <section id="about" class="fullpage-section page-about">
@@ -734,114 +761,6 @@
           <div class="stat-item">
             <span class="stat-number">e</span>
             <span class="stat-label">Growth</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="experience" class="fullpage-section page-experience">
-    <div class="content-wrapper">
-      <h2 class="section-title">Experience</h2>
-      <div class="experience-grid">
-        <div class="experience-card">
-          <div class="exp-icon">🎓</div>
-          <h3>Research Assistant</h3>
-          <p>Fluid Dynamics Lab</p>
-          <span class="exp-year">2023 - Present</span>
-        </div>
-        <div class="experience-card">
-          <div class="exp-icon">💻</div>
-          <h3>Data Scientist</h3>
-          <p>Tech Startup</p>
-          <span class="exp-year">2022 - 2023</span>
-        </div>
-        <div class="experience-card">
-          <div class="exp-icon">🎵</div>
-          <h3>Music Producer</h3>
-          <p>Freelance</p>
-          <span class="exp-year">2021 - Present</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="projects" class="fullpage-section page-projects">
-    <div class="content-wrapper">
-      <h2 class="section-title">Projects</h2>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-icon">🌊</div>
-          <h3>Fluid Simulator</h3>
-          <p>Real-time fluid dynamics simulation</p>
-          <div class="project-tags">
-            <span class="tag">JavaScript</span>
-            <span class="tag">Canvas</span>
-            <span class="tag">Physics</span>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-icon">🎵</div>
-          <h3>Music Visualizer</h3>
-          <p>Mathematical music patterns</p>
-          <div class="project-tags">
-            <span class="tag">Web Audio</span>
-            <span class="tag">Three.js</span>
-            <span class="tag">Math</span>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-icon">🏀</div>
-          <h3>Shot Tracker</h3>
-          <p>Basketball analytics app</p>
-          <div class="project-tags">
-            <span class="tag">React</span>
-            <span class="tag">ML</span>
-            <span class="tag">Sports</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="skills" class="fullpage-section page-skills">
-    <div class="content-wrapper">
-      <h2 class="section-title">Skills</h2>
-      <div class="skills-container">
-        <div class="skill-category">
-          <h3>Mathematics</h3>
-          <div class="skill-items">
-            <span class="skill-item">Calculus</span>
-            <span class="skill-item">Linear Algebra</span>
-            <span class="skill-item">Differential Equations</span>
-            <span class="skill-item">Number Theory</span>
-          </div>
-        </div>
-        <div class="skill-category">
-          <h3>Physics</h3>
-          <div class="skill-items">
-            <span class="skill-item">Quantum Mechanics</span>
-            <span class="skill-item">Fluid Dynamics</span>
-            <span class="skill-item">Classical Mechanics</span>
-            <span class="skill-item">Thermodynamics</span>
-          </div>
-        </div>
-        <div class="skill-category">
-          <h3>Programming</h3>
-          <div class="skill-items">
-            <span class="skill-item">Python</span>
-            <span class="skill-item">JavaScript</span>
-            <span class="skill-item">MATLAB</span>
-            <span class="skill-item">C++</span>
-          </div>
-        </div>
-        <div class="skill-category">
-          <h3>Creative</h3>
-          <div class="skill-items">
-            <span class="skill-item">Music Production</span>
-            <span class="skill-item">Basketball</span>
-            <span class="skill-item">Problem Solving</span>
-            <span class="skill-item">Innovation</span>
           </div>
         </div>
       </div>

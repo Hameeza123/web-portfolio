@@ -8,6 +8,7 @@ body {
   animation: gradientShift 8s ease infinite;
   color: #e0e0e0; /* Light gray text color */
   font-family: 'Fira Code', monospace;
+  padding-top: 6rem; /* match the navbar height */
 }
 
 @keyframes gradientShift {
@@ -32,7 +33,7 @@ main {
 h1 {
   font-size: 4.5rem;
   margin: 0;
-  color: rgba(196, 217, 255, 0.82); /* Light blue with transparency */
+  color: rgba(255, 255, 255, 0.92); /* Light blue with transparency */
 }
 
 /* ===== NAVIGATION ===== */
@@ -260,7 +261,8 @@ footer {
 
 /* ===== HERO SECTION COLORS ===== */
 .hero-title {
-  color: rgba(219, 231, 247, 0.82); /* Light blue hero title */
+  color: rgba(243, 244, 245, 0.9);
+  font-family: 'Fira Code', monospace;
 }
 
 .hero-tagline {
@@ -270,6 +272,49 @@ footer {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-fill-color: transparent;
+}
+
+.hero-title span {
+  display: inline-block;
+  transition: transform 0.7s cubic-bezier(.4,2,.6,1), opacity 0.7s;
+  will-change: transform, opacity;
+}
+.hero-title span.pop-fall {
+  animation: popUp 0.22s cubic-bezier(.4,1.7,.6,1) forwards, fallToWater 0.7s cubic-bezier(.4,2,.6,1) 0.22s forwards;
+}
+@keyframes popUp {
+  0% { transform: none; }
+  80% { transform: translateY(-40px); }
+  100% { transform: translateY(-40px); }
+}
+@keyframes fallToWater {
+  0% { }
+  100% { /* final transform will be set inline by JS */ }
+}
+
+/* ===== HERO INTRO ===== */
+.hero-intro {
+  color: #fff;
+  font-family: 'Fira Code', monospace;
+  font-weight: 400;
+  margin-bottom: 0em;
+  letter-spacing: 1px;
+  opacity: 1;
+  text-align: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.intro-text {
+  font-size: 2rem;
+}
+
+.name-animation {
+  font-size: 4rem;
+  margin-left: 1.1rem;
+  transform: translateY(0.35rem);
 }
 
 /* ===== NAVIGATION COLORS ===== */
@@ -323,7 +368,7 @@ footer {
   --water-gradient-stop2: rgba(60, 80, 100, 0.55); /* 20% down - semi-transparent blue-gray */
   --water-gradient-stop3: rgba(36, 51, 65, 0.75);  /* 45% down - more opaque dark blue */
   --water-gradient-stop4: rgba(27, 35, 43, 0.85);  /* 70% down - mostly opaque dark */
-  --water-gradient-stop5: rgba(23, 27, 35, 0.92);  /* 85% down - nearly opaque */
+  --water-gradient-stop5: rgba(22, 25, 34, 0.92);  /* 85% down - nearly opaque */
   --water-gradient-stop6: rgba(20, 24, 32, 1);     /* Bottom - completely opaque dark */
 }
 
@@ -332,6 +377,533 @@ footer {
   /* Light blue bubble with radial gradient */
   background: radial-gradient(circle at 60% 40%, rgba(200, 230, 255, 0.8) 60%, rgba(120, 180, 220, 0.27) 100%);
   box-shadow: 0 0 24px rgba(180, 220, 255, 0.33); /* Blue glow around bubbles */
+}
+  
+
+  .tagline {
+    font-size: 1.25rem;
+    opacity: 0.8;
+    margin-top: 0.5rem;
+  }
+  nav {
+    margin-top: 2rem;
+  }
+  nav a {
+    margin: 0 0.35rem;
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: #e0e0e0;
+    position: relative;
+    padding-bottom: 2px;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background: #e0e0e0;
+    transition: width 0.3s;
+  }
+  nav a:hover::after {
+    width: 100%;
+  }
+  section {
+    padding: 80px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  section h2 {
+    font-size: 2rem;
+    border-bottom: 1px solid #34623d;
+    padding-bottom: 8px;
+    margin-bottom: 1rem;
+  }
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* background: #112a03; */
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 8px;
+    /* border: 1px solid #333; */
+    max-width: 500px;
+  }
+  .project-card h3 {
+    margin-top: 0;
+  }
+  .project-card a {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #e0e0e0;
+}
+
+#contact a {
+    color: #e0e0e0;
+    text-decoration: none;
+}
+  footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    /* border-top: 1px solid #333; */
+  }
+  
+.project-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.project-card {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.project-icon {
+  font-size: 3.5rem;
+  color: #8fd6a7;
+  margin-right: 2rem;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.project-info {
+  flex: 1 1 0;
+}
+
+.mouse-trail-dot {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle at 60% 40%, #d2e8d9cc 60%, #07a3bb44 100%);
+  box-shadow: 0 0 24px #8fd6a755;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 1s, transform 1s;
+  mix-blend-mode: lighten;
+  will-change: transform, opacity;
+}
+
+#star-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10;
+}
+
+#star-canvas-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10;
+}
+
+#fluid-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(180deg, #1d232b 0%,#2a2339 70%, #5a3f19 100%);
+  border: none;
+  box-shadow: none;
+  pointer-events: auto;
+  display: block;
+  z-index: 5;
+}
+
+#star-canvas canvas, #star-canvas-top canvas {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 3;
+  pointer-events: none;
+  display: block;
+}
+  
+
+  .tagline {
+    font-size: 1.25rem;
+    opacity: 0.8;
+    margin-top: 0.5rem;
+  }
+  nav {
+    margin-top: 2rem;
+  }
+  nav a {
+    margin: 0 0.35rem;
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: #e0e0e0;
+    position: relative;
+    padding-bottom: 2px;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background: #e0e0e0;
+    transition: width 0.3s;
+  }
+  nav a:hover::after {
+    width: 100%;
+  }
+  section {
+    padding: 80px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  section h2 {
+    font-size: 2rem;
+    border-bottom: 1px solid #34623d;
+    padding-bottom: 8px;
+    margin-bottom: 1rem;
+  }
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* background: #112a03; */
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 8px;
+    /* border: 1px solid #333; */
+    max-width: 500px;
+  }
+  .project-card h3 {
+    margin-top: 0;
+  }
+  .project-card a {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #e0e0e0;
+}
+
+#contact a {
+    color: #e0e0e0;
+    text-decoration: none;
+}
+  footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    /* border-top: 1px solid #333; */
+  }
+  
+.project-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.project-card {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.project-icon {
+  font-size: 3.5rem;
+  color: #8fd6a7;
+  margin-right: 2rem;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.project-info {
+  flex: 1 1 0;
+}
+
+.mouse-trail-dot {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle at 60% 40%, #d2e8d9cc 60%, #07a3bb44 100%);
+  box-shadow: 0 0 24px #8fd6a755;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 1s, transform 1s;
+  mix-blend-mode: lighten;
+  will-change: transform, opacity;
+}
+
+/* Fixed Top Navigation Bar - Thicker, Full-Width Options */
+.top-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1000;
+  background: linear-gradient(
+    180deg,
+    #dcf1f6 0%,
+    #f2eff2 50%,
+    #f4f3f6 100%
+  );
+  opacity: 0.8;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  clip-path: url(#waveClip);
+  text-align: left;
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+}
+
+.hamburger-menu:hover .hamburger-icon {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 1));
+}
+
+.hamburger-menu:hover .hamburger-line {
+  background-color: #d6c2e2;
+}
+
+/* Navigation Menu */
+.nav-menu {
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  height: 0 !important;
+  font-size: 0;
+  white-space: nowrap;
+  text-indent: 0;
+  margin-left: 0;
+  padding-left: 0;
+  border: none;
+  outline: none;
+  overflow: hidden;
+  transition: height 0.3s ease;
+  width: calc(100% - 80px);
+}
+
+.nav-menu.active {
+  height: 7rem !important;
+}
+/* Remove this duplicate rule since we now use .nav-menu */
+.top-navbar li {
+  margin: 0;
+  padding: 0;
+  width: 20%;
+  display: inline-block;
+  list-style: none;
+  font-size: 1.1rem;
+  box-sizing: border-box;
+  vertical-align: top;
+}
+.top-navbar li:first-child {
+  margin-left: -16px;
+  padding-left: 0;
+}
+.top-navbar a {
+  padding: 2rem 0 0 0; /* only top padding, no sides */
+  color: #000000;
+  text-decoration: none;
+  font-family: 'Fira Code', monospace;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 0;
+  transition: all 0.3s ease;
+  width: 100%;
+  height: 7rem; /* Full height to match navbar */
+  text-align: center;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.top-navbar a:hover, .top-navbar a:focus {
+  background: linear-gradient(135deg, #e8f5e8 0%, #f0f8ff 50%, #c7f3f2 100%);
+  color: #210e2d;
+  outline: none;
+  opacity: 1;
+  width: 100%;
+  box-shadow: 
+    0 0 20px rgba(137, 119, 148, 0.3),
+    0 0 40px rgba(132, 102, 151, 0.2),
+    0 0 60px rgba(110, 92, 123, 0.1), 
+    inset 0 0 20px rgba(255, 255, 255, 0.554);
+  transform: translateY(-2px);
+  /* text-shadow: 0 0 10px rgba(106, 27, 154, 0.5); */
+/*
+  The following CSS is a media query that applies styles to the .top-navbar navigation bar
+  when the screen width is 700px or less (i.e., on mobile or small tablets).
+
+  - .top-navbar ul: 
+      - flex-wrap: wrap;         // Allows nav items to wrap onto multiple lines if needed.
+      - font-size: 0.95rem;      // Slightly reduces font size for better fit.
+      - height: auto;            // Removes fixed height so navbar can expand vertically.
+
+  - .top-navbar li:
+      - flex: 1 1 50%;           // Each nav item takes up about half the row, so two per line.
+
+  - .top-navbar a:
+      - padding: 0.8rem 0.2rem;  // Reduces padding for smaller screens.
+      - font-size: 1rem;         // Makes link text a bit smaller for mobile.
+
+  This makes the navigation bar more compact and touch-friendly on small screens.
+*/
+}
+@media (max-width: 700px) {
+  .top-navbar ul {
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+    height: auto;
+  }
+  .top-navbar li {
+    flex: 1 1 50%;
+  }
+  .top-navbar a {
+    padding: 0.8rem 0.2rem;
+    font-size: 1rem;
+  }
+}
+
+/* Desktop text vs mobile text */
+.desktop-text {
+  display: inline;
+}
+
+.mobile-text {
+  display: none;
+}
+
+/* iPhone and small mobile devices */
+@media (max-width: 480px) {
+  .desktop-text {
+    display: none;
+  }
+  
+  .mobile-text {
+    display: inline;
+  }
+  
+  .top-navbar a {
+    font-size: 0.4rem;
+    padding: 1.5rem 0.005rem 0 0.005rem;
+    height: 6rem;
+  }
+  
+  .nav-menu.active {
+    height: 6rem;
+  }
+  
+  .hamburger-menu {
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 20px;
+  }
+  
+  .hamburger-icon {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .nav-menu {
+    width: calc(100% - 60px);
+  }
+}
+
+/* Very small screens - side slide option */
+@media (max-width: 360px) {
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    height: 100vh;
+    background: linear-gradient(180deg, #eaccee 0%, #f2eff2 50%, #f4f3f6 100%);
+    transition: right 0.3s ease;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 80px;
+  }
+  
+  .nav-menu.active {
+    right: 0;
+    height: 100vh;
+  }
+  
+  .top-navbar li {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .top-navbar a {
+    height: auto;
+    padding: 1rem;
+    font-size: 1rem;
+    text-align: center;
+  }
 }
   
 

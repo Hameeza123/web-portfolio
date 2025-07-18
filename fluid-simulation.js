@@ -1,13 +1,16 @@
 // --- Fluid Simulation Parameters ---
 const N = 200; // number of points
 const dx = 1.0;
-const dt = 0.12; // smaller time step for stability
+const dt = 0.06; // smaller time step for smoother animation
 const g = 1; // gravity (slower)
 const damping = 0.9993; // more damping
 
 // --- State arrays ---
 let h = new Array(N).fill(0); // height
 let v = new Array(N).fill(0); // velocity
+
+// --- Gentle random wave state ---
+let waveTime = 0;
 
 // --- Canvas setup ---
 let canvas, ctx;
@@ -55,6 +58,19 @@ function initFluidSimulation() {
 
 // --- Simulation step ---
 function stepFluid() {
+  // Gentle random waves
+  waveTime += 0.012;
+  for (let i = 0; i < N; i++) {
+    // Sum of 3 smooth sine waves with different frequencies and slow phase drift
+    const t = waveTime;
+    const x = i / N;
+    const wave =
+      2.5 * Math.sin(2 * Math.PI * (x * 0.7 + t * 0.18)) +
+      1.5 * Math.sin(2 * Math.PI * (x * 1.3 - t * 0.11)) +
+      1.0 * Math.sin(2 * Math.PI * (x * 2.1 + t * 0.07));
+    h[i] += wave * 0.012; // Small amplitude
+  }
+  
   // Mouse gravity well: smoothly pull fluid toward mouse if near surface
   const waterVolume = 0.12; // match draw()
   const y0 = canvas.height * (1 - waterVolume);
@@ -91,6 +107,15 @@ function stepFluid() {
   for (let i = 1; i < N-1; i++) {
     h[i] = 0.25 * hSmooth[i-1] + 0.5 * hSmooth[i] + 0.25 * hSmooth[i+1];
   }
+  // Dampen the corners so they oscillate but stay near zero
+  h[0] *= 0.7;
+  h[N-1] *= 0.7;
+  // Clamp the water surface so it never goes below the bottom of the canvas
+  const minMargin = 2;
+  const maxH = canvas.height - minMargin - y0;
+  for (let i = 0; i < N; i++) {
+    if (h[i] > maxH) h[i] = maxH;
+  }
 }
 
 // --- Draw the fluid surface ---
@@ -108,7 +133,6 @@ function drawFluid() {
   ctx.lineTo(canvas.width, canvas.height);
   ctx.lineTo(0, canvas.height);
   ctx.closePath();
-  
   // Water fill: use CSS custom properties for gradient stops
   const styles = getComputedStyle(document.documentElement);
   const stop1 = styles.getPropertyValue('--water-gradient-stop1').trim();
@@ -127,7 +151,7 @@ function drawFluid() {
   ctx.fillStyle = grad;
   ctx.fill();
   ctx.restore();
-  
+  ctx.globalAlpha = 1;
   // Draw the surface line (less contrast)
   ctx.beginPath();
   ctx.moveTo(0, y0 + h[0]);
@@ -138,7 +162,6 @@ function drawFluid() {
   ctx.strokeStyle = 'rgba(200,220,230,0.32)';
   ctx.lineWidth = 2;
   ctx.stroke();
-  
   // Draw highlight along the surface (very subtle)
   ctx.save();
   ctx.beginPath();
@@ -154,7 +177,7 @@ function drawFluid() {
   ctx.shadowBlur = 0;
   ctx.stroke();
   ctx.restore();
-  
+  ctx.globalAlpha = 1;
   // Optional: faint reflection below the surface (even more subtle)
   ctx.save();
   ctx.beginPath();
@@ -170,7 +193,7 @@ function drawFluid() {
   ctx.shadowBlur = 0;
   ctx.stroke();
   ctx.restore();
-  
+  ctx.globalAlpha = 1;
   // Draw mouse gravity well indicator (less contrast)
   if (mouseX !== null && mouseY !== null) {
     ctx.beginPath();
@@ -180,6 +203,37 @@ function drawFluid() {
     ctx.strokeStyle = 'rgba(200,220,255,0.18)';
     ctx.lineWidth = 1.2;
     ctx.stroke();
+  }
+
+  // --- Draw the Thousand Sunny image as the boat ---
+  if (!window._thousSunnyImg) {
+    window._thousSunnyImg = new Image();
+    window._thousSunnyImg.src = 'thous_sunny.png';
+  }
+  const img = window._thousSunnyImg;
+  if (img.complete && img.naturalWidth > 0) {
+    // Reasonable display size for the boat
+    const boatWidth = 180;
+    const boatHeight = 165;
+    const boatX = canvas.width * 0.75;
+    const i = Math.floor((boatX / canvas.width) * (N - 1));
+    // Place the boat so its bottom touches the water
+    const boatY = y0 + h[i] - boatHeight / 2 + 18;
+    const t = performance.now() * 0.001;
+    const rock = Math.sin(t * 1.2) * 8; // pixels
+    ctx.save();
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 1;
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.translate(boatX, boatY + rock);
+    ctx.rotate(Math.sin(t * 1.2) * 0.07);
+    ctx.drawImage(
+      img,
+      0, 0, img.naturalWidth, img.naturalHeight, // source rect
+      -boatWidth/2, -boatHeight/2, boatWidth, boatHeight // dest rect
+    );
+    ctx.restore();
   }
 }
 
