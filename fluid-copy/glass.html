@@ -3,48 +3,283 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GLASS — Hamza Hussain</title>
+  <title>GLASS Profile - Hamza Hussain</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#f7f4ee; --ink:#111; --line:rgba(17,17,17,0.14); }
+    :root {
+      --bg: #fcfaf6;
+      --ink: #161616;
+      --muted: #5f5b56;
+      --line: rgba(22, 22, 22, 0.16);
+      --accent: maroon;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { width: 100%; min-height: 100%; background: var(--bg); color: var(--ink); font-family: 'Archivo', sans-serif; }
-    main {
-      width: min(920px, calc(100vw - 32px));
-      margin: 36px auto;
-      border: 1px solid var(--line);
-      background: #fff;
-      padding: clamp(24px, 4vw, 46px);
-    }
-    h1 {
-      font-family: 'Zalando Sans Expanded', sans-serif;
-      color: maroon;
-      letter-spacing: 0.03em;
-      font-size: clamp(1.6rem, 3vw, 2.3rem);
-      margin-bottom: 10px;
-    }
-    p { line-height: 1.65; }
-    a {
-      display: inline-block;
-      margin-top: 20px;
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      background: var(--bg);
       color: var(--ink);
-      text-decoration: none;
-      border: 1px solid var(--line);
-      border-radius: 999px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .topbar {
+      width: min(1120px, calc(100vw - 36px));
+      margin: 16px auto 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      font-size: 0.75rem;
-      padding: 8px 12px 7px;
+      font-size: 0.74rem;
+    }
+
+    .topbar a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 180ms ease;
+    }
+
+    .topbar a:hover { border-color: var(--ink); }
+
+    main {
+      width: min(1120px, calc(100vw - 36px));
+      margin: 0 auto 52px;
+      display: grid;
+      gap: 22px;
+    }
+
+    .page-head {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 0 14px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .page-head h1 {
+      font-family: 'Zalando Sans Expanded', sans-serif;
+      color: var(--accent);
+      letter-spacing: 0.03em;
+      font-size: clamp(1.45rem, 2.8vw, 2.1rem);
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .page-head p {
+      font-family: 'Archivo', sans-serif;
+      color: var(--ink);
+      line-height: 1.62;
+      max-width: 80ch;
+      font-size: 0.95rem;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 2px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #3f3b36;
+      font-family: 'Archivo', sans-serif;
+      background: #fcfaf7;
+    }
+
+    .experience-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .experience-card {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      gap: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 14px;
+    }
+
+    .experience-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 6px;
+      border: 1px solid rgba(22, 22, 22, 0.2);
+      overflow: hidden;
+      background: #f4f2ee;
+    }
+
+    .experience-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .experience-content {
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .experience-meta {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-family: 'Archivo', sans-serif;
+    }
+
+    .experience-content h2 {
+      font-size: 1.03rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    .experience-content p {
+      font-family: 'Archivo', sans-serif;
+      font-size: 0.91rem;
+      line-height: 1.58;
+    }
+
+    .reflection {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 14px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .reflection h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+    }
+
+    .reflection p {
+      font-family: 'Archivo', sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.62;
+      max-width: 90ch;
+    }
+
+    .page-links {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin-top: 1px;
+    }
+
+    .page-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 11px 6px;
+      transition: transform 140ms ease, background 180ms ease;
+    }
+
+    .page-links a:hover {
+      transform: translateY(-1px);
+      background: #fff;
+    }
+
+    @media (max-width: 900px) {
+      .experience-card { grid-template-columns: 1fr; }
+      .experience-photo { max-width: 260px; }
+    }
+
+    @media (max-width: 640px) {
+      .page-head p,
+      .experience-content p,
+      .reflection p { font-size: 0.9rem; }
+      .experience-content h2 { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
+  <header class="topbar">
+    <a href="index.html">Back to Main</a>
+    <span>GLASS Profile</span>
+  </header>
+
   <main>
-    <h1>GLASS</h1>
-    <p>Coming soon.</p>
-    <a href="landing.html">Back to Landing</a>
+    <section class="page-head">
+      <h1>Global Competency / GLASS</h1>
+      <p>GLASS has shaped how I connect technical work with social context. Through study-away programs in Abu Dhabi, Hanoi, and Seoul, I explored how culture, policy, and engineering can work together to support more equitable development.</p>
+      <div class="chip-row">
+        <span class="chip">Global Learning</span>
+        <span class="chip">Sustainability</span>
+        <span class="chip">Intercultural Communication</span>
+        <span class="chip">Applied Research</span>
+      </div>
+      <div class="page-links">
+        <a href="projects.html">View Projects</a>
+        <a href="about.html">Back to Resume</a>
+      </div>
+    </section>
+
+    <section class="experience-list" aria-label="Global competency experiences">
+      <article class="experience-card">
+        <figure class="experience-photo">
+          <img src="nyu.jpeg" alt="NYU campus image used for Abu Dhabi study away profile" />
+        </figure>
+        <div class="experience-content">
+          <p class="experience-meta">NYU Abu Dhabi Study Away | January to May</p>
+          <h2>Academic Expansion + Early Research Exposure</h2>
+          <p>I studied at NYU Abu Dhabi for one semester and took Linear Algebra, Ordinary Differential Equations, Electricity and Magnetism, Computational Physics, Futsal, and a research assistantship in the Astroparticle Physics Lab.</p>
+          <p>Living in the UAE expanded my cultural perspective, and the coursework changed my technical direction. Computational Physics introduced me to simulation-driven research, while the lab experience gave me direct insight into what an academic research career looks like day to day.</p>
+        </div>
+      </article>
+
+      <article class="experience-card">
+        <figure class="experience-photo">
+          <img src="IMG_0873.jpeg" alt="Vietnam program photo" />
+        </figure>
+        <div class="experience-content">
+          <p class="experience-meta">Vietnam Summer Program (Hanoi) | Digital Twin Project</p>
+          <h2>Sustainable Cities Through Simulation</h2>
+          <p>In Hanoi, I worked on a digital twin project focused on city traffic and urban sustainability, aligned with UN SDG 11. The program also included historical and linguistic study that deepened our understanding of Vietnamese culture.</p>
+          <p>This experience connected two interests I previously kept separate: data and sustainability. Using math and physics-based simulation to approach social problems showed me how technical tools can directly support public wellbeing.</p>
+        </div>
+      </article>
+
+      <article class="experience-card">
+        <figure class="experience-photo">
+          <img src="IMG_6368.jpeg" alt="Seoul winter study program photo" />
+        </figure>
+        <div class="experience-content">
+          <p class="experience-meta">Hanyang University International Winter School | Seoul</p>
+          <h2>UN SDGs + Social Entrepreneurship in Korea</h2>
+          <p>At Hanyang University, I studied basic Korean and a course on the UN Sustainable Development Goals. Language learning and field visits helped me understand Korean social values and current development priorities.</p>
+          <p>Visits to Hisbeans, MYSC, and Donghwa made social entrepreneurship tangible. Seeing disability-inclusive hiring, mission-driven incubation, and values-based business in practice broadened how I evaluate impact in both nonprofit and private sectors.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="reflection">
+      <h3>What GLASS Means in My Work</h3>
+      <p>These experiences continue to shape how I choose projects: I look for work where technical depth and social impact are both present. Whether I am building optimization tools or analyzing product data, I try to keep global context and human outcomes visible in the process.</p>
+    </section>
   </main>
 </body>
 </html>

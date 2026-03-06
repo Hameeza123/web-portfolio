@@ -3,48 +3,283 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projects — Hamza Hussain</title>
+  <title>Projects - Hamza Hussain</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#f7f4ee; --ink:#111; --line:rgba(17,17,17,0.14); }
+    :root {
+      --bg: #fcfaf6;
+      --ink: #161616;
+      --muted: #5f5b56;
+      --line: rgba(22, 22, 22, 0.16);
+      --accent: maroon;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { width: 100%; min-height: 100%; background: var(--bg); color: var(--ink); font-family: 'Archivo', sans-serif; }
-    main {
-      width: min(920px, calc(100vw - 32px));
-      margin: 36px auto;
-      border: 1px solid var(--line);
-      background: #fff;
-      padding: clamp(24px, 4vw, 46px);
-    }
-    h1 {
-      font-family: 'Zalando Sans Expanded', sans-serif;
-      color: maroon;
-      letter-spacing: 0.03em;
-      font-size: clamp(1.6rem, 3vw, 2.3rem);
-      margin-bottom: 10px;
-    }
-    p { line-height: 1.65; }
-    a {
-      display: inline-block;
-      margin-top: 20px;
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      background: var(--bg);
       color: var(--ink);
-      text-decoration: none;
-      border: 1px solid var(--line);
-      border-radius: 999px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .topbar {
+      width: min(1120px, calc(100vw - 36px));
+      margin: 16px auto 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      font-size: 0.75rem;
-      padding: 8px 12px 7px;
+      font-size: 0.74rem;
+    }
+
+    .topbar a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 180ms ease;
+    }
+
+    .topbar a:hover { border-color: var(--ink); }
+
+    main {
+      width: min(1120px, calc(100vw - 36px));
+      margin: 0 auto 52px;
+      display: grid;
+      gap: 22px;
+    }
+
+    .page-head {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 0 14px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .page-head h1 {
+      font-family: 'Zalando Sans Expanded', sans-serif;
+      color: var(--accent);
+      letter-spacing: 0.03em;
+      font-size: clamp(1.45rem, 2.8vw, 2.1rem);
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .page-head p {
+      font-family: 'Archivo', sans-serif;
+      color: var(--ink);
+      line-height: 1.6;
+      max-width: 76ch;
+      font-size: 0.95rem;
+    }
+
+    .project-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .project-card {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 16px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .project-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 6px;
+      border: 1px solid rgba(22, 22, 22, 0.2);
+      overflow: hidden;
+      background: #f4f2ee;
+    }
+
+    .project-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .project-photo.contain img {
+      object-fit: contain;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .project-content {
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .project-meta {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-family: 'Archivo', sans-serif;
+    }
+
+    .project-content h2 {
+      font-size: 1.04rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    .project-content p {
+      font-family: 'Archivo', sans-serif;
+      font-size: 0.91rem;
+      line-height: 1.58;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #3f3b36;
+      font-family: 'Archivo', sans-serif;
+      background: #fcfaf7;
+    }
+
+    .page-links {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+
+    .page-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 11px 6px;
+      transition: transform 140ms ease, background 180ms ease;
+    }
+
+    .page-links a:hover {
+      transform: translateY(-1px);
+      background: #fff;
+    }
+
+    @media (max-width: 860px) {
+      .project-card { grid-template-columns: 1fr; }
+      .project-photo { max-width: 240px; }
+    }
+
+    @media (max-width: 640px) {
+      .page-head p,
+      .project-content p { font-size: 0.9rem; }
+      .project-content h2 { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
+  <header class="topbar">
+    <a href="index.html">Back to Main</a>
+    <span>Projects</span>
+  </header>
+
   <main>
-    <h1>Projects</h1>
-    <p>Coming soon.</p>
-    <a href="landing.html">Back to Landing</a>
+    <section class="page-head">
+      <h1>Projects</h1>
+      <p>Selected technical work across computational physics, optimization, and data science. I focus on projects where rigorous modeling can lead to practical impact.</p>
+      <div class="page-links">
+        <a href="about.html">View Resume</a>
+        <a href="glass.html">GLASS Profile</a>
+      </div>
+    </section>
+
+    <section class="project-list" aria-label="Project cards">
+      <article class="project-card">
+        <figure class="project-photo">
+          <img src="Wendelstein-7-AS-is-an-advanced-stellarator-fusion-experiment-with-modular-magnetic-field.png" alt="Stellarator device and magnetic geometry" />
+        </figure>
+        <div class="project-content">
+          <p class="project-meta">NYU Plasma Physics Group | Jan 2025 - Present</p>
+          <h2>Stellarator Boundary Optimization</h2>
+          <p>Built a gradient-free Augmented Lagrangian optimization workflow for constrained stellarator boundary shapes using Simsopt and VMEC. Ran large scan jobs on NYU Greene with reproducible Git-driven experiment tracking.</p>
+          <div class="tag-row">
+            <span class="tag">Python</span>
+            <span class="tag">Simsopt</span>
+            <span class="tag">VMEC</span>
+            <span class="tag">HPC</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <figure class="project-photo">
+          <img src="IMG_0937.jpeg" alt="Optics setup with components for photon experiments" />
+        </figure>
+        <div class="project-content">
+          <p class="project-meta">NYU Applied Physics Lab | Summer 2025</p>
+          <h2>Entangled Photon SPDC Experiment</h2>
+          <p>Built and aligned a 405 nm laser plus BBO crystal setup to generate entangled photons through spontaneous parametric down conversion. Validated optical performance with spectrometer, IR camera, and power meter measurements.</p>
+          <div class="tag-row">
+            <span class="tag">Quantum Optics</span>
+            <span class="tag">Experimental Physics</span>
+            <span class="tag">Data Collection</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <figure class="project-photo">
+          <img src="IMG_0873.jpeg" alt="City scene from global sustainability field program" />
+        </figure>
+        <div class="project-content">
+          <p class="project-meta">Hanoi Summer Program | 2025</p>
+          <h2>Digital Twin for Sustainable Urban Traffic</h2>
+          <p>Modeled traffic flow in Hanoi using a digital twin approach tied to UN Sustainable Development Goal 11. This project connected mathematical modeling and simulation with real city-level sustainability problems.</p>
+          <div class="tag-row">
+            <span class="tag">Simulation</span>
+            <span class="tag">Sustainability</span>
+            <span class="tag">Urban Systems</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <figure class="project-photo contain">
+          <img src="jobswithpickle_logo.jpeg" alt="Pickle company logo" />
+        </figure>
+        <div class="project-content">
+          <p class="project-meta">Pickle | Nov 2024 - May 2025</p>
+          <h2>Product Analytics and Dashboard Expansion</h2>
+          <p>Analyzed 20,000+ monthly user entries using SQL and Python tools, then expanded the reporting stack from 2 to 6 dashboards. Built clearer decision support for product and growth teams.</p>
+          <div class="tag-row">
+            <span class="tag">SQL</span>
+            <span class="tag">Pandas</span>
+            <span class="tag">Product Analytics</span>
+            <span class="tag">Dashboarding</span>
+          </div>
+        </div>
+      </article>
+    </section>
   </main>
 </body>
 </html>
