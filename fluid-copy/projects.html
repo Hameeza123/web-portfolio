@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projects - Hamza Hussain</title>
+  <title>Projects / Hamza Hussain</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #fcfaf6;
+      --bg: #fefdfb;
       --ink: #161616;
       --muted: #5f5b56;
-      --line: rgba(22, 22, 22, 0.16);
+      --line: rgba(22, 22, 22, 0.14);
       --accent: maroon;
     }
 
@@ -23,263 +23,387 @@
       min-height: 100%;
       background: var(--bg);
       color: var(--ink);
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Space Mono', monospace;
     }
 
+    /* Nav */
     .topbar {
-      width: min(1120px, calc(100vw - 36px));
-      margin: 16px auto 10px;
+      width: min(1240px, calc(100vw - 48px));
+      margin: 20px auto 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.13em;
       font-size: 0.74rem;
     }
-
-    .topbar a {
+    .topbar .wordmark {
       color: var(--ink);
       text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 180ms ease;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 400;
+      position: relative;
     }
+    .topbar .wordmark::after,
+    .topbar nav a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -2px;
+      height: 1px; width: 100%;
+      background: var(--ink);
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 180ms ease;
+    }
+    .topbar .wordmark:hover::after { transform: scaleX(1); }
+    .topbar nav { display: flex; gap: 24px; }
+    .topbar nav a {
+      color: var(--ink);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 2px;
+    }
+    .topbar nav a:hover::after,
+    .topbar nav a.active::after { transform: scaleX(1); }
 
-    .topbar a:hover { border-color: var(--ink); }
-
+    /* Layout */
     main {
-      width: min(1120px, calc(100vw - 36px));
-      margin: 0 auto 52px;
-      display: grid;
-      gap: 22px;
+      width: min(1240px, calc(100vw - 48px));
+      margin: 0 auto 100px;
     }
 
+    /* Page head */
     .page-head {
       border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 16px 0 14px;
+      padding: clamp(36px, 6vw, 64px) 0 clamp(28px, 4.5vw, 48px);
       display: grid;
-      gap: 8px;
+      gap: 12px;
     }
-
     .page-head h1 {
-      font-family: 'Zalando Sans Expanded', sans-serif;
-      color: var(--accent);
-      letter-spacing: 0.03em;
-      font-size: clamp(1.45rem, 2.8vw, 2.1rem);
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(2.8rem, 6.5vw, 5rem);
       font-weight: 500;
-      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+      line-height: 1.02;
     }
-
     .page-head p {
-      font-family: 'Archivo', sans-serif;
+      font-family: 'Space Mono', monospace;
+      color: var(--muted);
+      font-size: clamp(0.93rem, 1.4vw, 1rem);
+      line-height: 1.62;
+      max-width: 58ch;
+    }
+    .page-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .page-links a {
+      text-decoration: none;
       color: var(--ink);
-      line-height: 1.6;
-      max-width: 76ch;
-      font-size: 0.95rem;
-    }
-
-    .project-list {
-      display: grid;
-      gap: 16px;
-    }
-
-    .project-card {
-      display: grid;
-      grid-template-columns: 220px minmax(0, 1fr);
-      gap: 16px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
       border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 14px 6px;
+      transition: transform 140ms ease, background 180ms ease;
+    }
+    .page-links a:hover {
+      transform: translateY(-1px);
       background: #fff;
-      border-radius: 8px;
-      padding: 14px;
     }
 
-    .project-photo {
+    /* Project rows */
+    .project-row {
+      display: grid;
+      grid-template-columns: 48% minmax(0, 1fr);
+      gap: clamp(32px, 5vw, 72px);
+      padding: clamp(48px, 7vw, 80px) 0;
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+    }
+    .project-row.reversed {
+      grid-template-columns: minmax(0, 1fr) 48%;
+    }
+    .project-row.reversed .project-img { order: 2; }
+    .project-row.reversed .project-text { order: 1; }
+
+    .project-img {
       width: 100%;
       aspect-ratio: 4 / 3;
-      border-radius: 6px;
-      border: 1px solid rgba(22, 22, 22, 0.2);
       overflow: hidden;
-      background: #f4f2ee;
+      border-radius: 4px;
+      background: #e8e4dc;
     }
-
-    .project-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+    .project-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 600ms cubic-bezier(.25,.46,.45,.94);
     }
+    .project-row:hover .project-img img { transform: scale(1.04); }
 
-    .project-photo.contain img {
-      object-fit: contain;
-      padding: 12px;
-      background: #fff;
-    }
-
-    .project-content {
+    .project-text {
       display: grid;
-      gap: 8px;
+      gap: 18px;
       align-content: start;
+      padding-top: 6px;
     }
-
     .project-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.71rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       color: var(--muted);
-      font-size: 0.72rem;
-      font-family: 'Archivo', sans-serif;
     }
-
-    .project-content h2 {
-      font-size: 1.04rem;
+    .project-text h2 {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(1.4rem, 2.7vw, 2.1rem);
       font-weight: 500;
-      letter-spacing: 0.01em;
+      line-height: 1.18;
+      letter-spacing: 0.005em;
     }
-
-    .project-content p {
-      font-family: 'Archivo', sans-serif;
-      font-size: 0.91rem;
-      line-height: 1.58;
+    .project-text p {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(0.91rem, 1.3vw, 0.98rem);
+      line-height: 1.72;
+      color: #3a3730;
+      max-width: 50ch;
     }
 
     .tag-row {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 2px;
     }
-
     .tag {
       border: 1px solid var(--line);
       border-radius: 999px;
-      padding: 4px 9px;
-      font-size: 0.72rem;
+      padding: 4px 11px;
+      font-size: 0.68rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #3f3b36;
-      font-family: 'Archivo', sans-serif;
-      background: #fcfaf7;
+      color: #4a4640;
+      font-family: 'Space Mono', monospace;
     }
 
-    .page-links {
+    .stat-row {
       display: flex;
-      gap: 9px;
+      gap: 44px;
       flex-wrap: wrap;
-      margin-top: 2px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      margin-top: 4px;
     }
-
-    .page-links a {
-      text-decoration: none;
-      color: var(--ink);
-      font-size: 0.73rem;
+    .stat .num {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(2rem, 3.8vw, 3rem);
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat .lbl {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
       text-transform: uppercase;
       letter-spacing: 0.11em;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 7px 11px 6px;
-      transition: transform 140ms ease, background 180ms ease;
+      color: var(--muted);
+      margin-top: 8px;
     }
 
-    .page-links a:hover {
-      transform: translateY(-1px);
-      background: #fff;
+    /* Scroll animations */
+    .js-animate .reveal-target {
+      opacity: 0;
+      transform: translateY(20px);
+      transition:
+        opacity 820ms cubic-bezier(.22,.61,.36,1),
+        transform 820ms cubic-bezier(.22,.61,.36,1);
+      transition-delay: var(--reveal-delay, 0ms);
+      will-change: opacity, transform;
+    }
+    .js-animate .reveal-target.reveal-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .js-animate .reveal-target { opacity: 1; transform: none; transition: none; }
     }
 
+    /* Responsive */
     @media (max-width: 860px) {
-      .project-card { grid-template-columns: 1fr; }
-      .project-photo { max-width: 240px; }
+      .project-row,
+      .project-row.reversed {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: clamp(36px, 6vw, 56px) 0;
+      }
+      .project-row.reversed .project-img { order: 0; }
+      .project-row.reversed .project-text { order: 0; }
+      .project-img { aspect-ratio: 16 / 9; }
     }
-
-    @media (max-width: 640px) {
-      .page-head p,
-      .project-content p { font-size: 0.9rem; }
-      .project-content h2 { font-size: 1rem; }
+    @media (max-width: 560px) {
+      .topbar nav { gap: 14px; }
+      .page-head h1 { font-size: clamp(2.2rem, 9vw, 3.2rem); }
+      .project-text h2 { font-size: 1.25rem; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
-    <a href="index.html">Back to Main</a>
-    <span>Projects</span>
+    <a class="wordmark" href="index.html">Hamza Hussain</a>
+    <nav>
+      <a href="about.html">About</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="glass.html">GLASS</a>
+    </nav>
   </header>
 
   <main>
     <section class="page-head">
       <h1>Projects</h1>
-      <p>Selected technical work across computational physics, optimization, and data science. I focus on projects where rigorous modeling can lead to practical impact.</p>
+      <p>Selected work in computational physics, quantum technology, data science, and biomedical modeling. Rigorous methods, real-world stakes.</p>
       <div class="page-links">
-        <a href="about.html">View Resume</a>
-        <a href="glass.html">GLASS Profile</a>
+        <a href="https://github.com/Hameeza123" target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </section>
 
-    <section class="project-list" aria-label="Project cards">
-      <article class="project-card">
-        <figure class="project-photo">
-          <img src="Wendelstein-7-AS-is-an-advanced-stellarator-fusion-experiment-with-modular-magnetic-field.png" alt="Stellarator device and magnetic geometry" />
-        </figure>
-        <div class="project-content">
-          <p class="project-meta">NYU Plasma Physics Group | Jan 2025 - Present</p>
-          <h2>Stellarator Boundary Optimization</h2>
-          <p>Built a gradient-free Augmented Lagrangian optimization workflow for constrained stellarator boundary shapes using Simsopt and VMEC. Ran large scan jobs on NYU Greene with reproducible Git-driven experiment tracking.</p>
-          <div class="tag-row">
-            <span class="tag">Python</span>
-            <span class="tag">Simsopt</span>
-            <span class="tag">VMEC</span>
-            <span class="tag">HPC</span>
-          </div>
+    <article class="project-row">
+      <figure class="project-img">
+        <img src="photos/projects/stellarator-boundary.png" alt="Stellarator magnetic geometry" />
+      </figure>
+      <div class="project-text">
+        <p class="project-meta">NYU Plasma Physics Group · Jan 2025 to Present</p>
+        <h2>Stellarator Boundary Optimization</h2>
+        <p>Gradient-free Augmented Lagrangian optimization of stellarator coil boundaries using Simsopt and VMEC. Large parameter scans on NYU Greene HPC with MPI parallelism and Git-tracked experiments. Contributing to the case for fusion as a viable clean energy source.</p>
+        <div class="tag-row">
+          <span class="tag">Python</span>
+          <span class="tag">Simsopt</span>
+          <span class="tag">VMEC</span>
+          <span class="tag">HPC</span>
+          <span class="tag">Fusion Energy</span>
         </div>
-      </article>
+      </div>
+    </article>
 
-      <article class="project-card">
-        <figure class="project-photo">
-          <img src="IMG_0937.jpeg" alt="Optics setup with components for photon experiments" />
-        </figure>
-        <div class="project-content">
-          <p class="project-meta">NYU Applied Physics Lab | Summer 2025</p>
-          <h2>Entangled Photon SPDC Experiment</h2>
-          <p>Built and aligned a 405 nm laser plus BBO crystal setup to generate entangled photons through spontaneous parametric down conversion. Validated optical performance with spectrometer, IR camera, and power meter measurements.</p>
-          <div class="tag-row">
-            <span class="tag">Quantum Optics</span>
-            <span class="tag">Experimental Physics</span>
-            <span class="tag">Data Collection</span>
-          </div>
+    <article class="project-row reversed">
+      <figure class="project-img">
+        <img src="photos/projects/spdc-lab.jpeg" alt="Optics bench with BBO crystal and laser setup" />
+      </figure>
+      <div class="project-text">
+        <p class="project-meta">NYU Applied Physics Lab · Summer 2025</p>
+        <h2>Entangled Photon Generation via SPDC</h2>
+        <p>Built and aligned a 405 nm laser and BBO crystal system to generate entangled photon pairs through spontaneous parametric down-conversion. Validated with spectrometer, IR camera, PMT, and power meter. Groundwork for future quantum cryptography experiments.</p>
+        <div class="tag-row">
+          <span class="tag">Quantum Optics</span>
+          <span class="tag">SPDC</span>
+          <span class="tag">Experimental Physics</span>
         </div>
-      </article>
+      </div>
+    </article>
 
-      <article class="project-card">
-        <figure class="project-photo">
-          <img src="IMG_0873.jpeg" alt="City scene from global sustainability field program" />
-        </figure>
-        <div class="project-content">
-          <p class="project-meta">Hanoi Summer Program | 2025</p>
-          <h2>Digital Twin for Sustainable Urban Traffic</h2>
-          <p>Modeled traffic flow in Hanoi using a digital twin approach tied to UN Sustainable Development Goal 11. This project connected mathematical modeling and simulation with real city-level sustainability problems.</p>
-          <div class="tag-row">
-            <span class="tag">Simulation</span>
-            <span class="tag">Sustainability</span>
-            <span class="tag">Urban Systems</span>
+    <article class="project-row">
+      <figure class="project-img">
+        <img src="photos/projects/quan10.png" alt="Quan10 quantum portfolio optimization graph" style="object-position: center center;" />
+      </figure>
+      <div class="project-text">
+        <p class="project-meta">Quantum Finance Project</p>
+        <h2>Quan10 / Quantum Portfolio Optimization</h2>
+        <p>Built a portfolio optimization workflow around a custom variational quantum eigensolver. The project uses a shot-efficient SPSA variant, dynamic shot allocation, and hardware-aware noise mitigation to make quantum optimization more practical on NISQ devices.</p>
+        <div class="tag-row">
+          <span class="tag">Qiskit</span>
+          <span class="tag">Quantum Computing</span>
+          <span class="tag">VQE</span>
+          <span class="tag">Portfolio Optimization</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="num">SE-SPSA</span>
+            <span class="lbl">Custom optimizer</span>
           </div>
         </div>
-      </article>
+      </div>
+    </article>
 
-      <article class="project-card">
-        <figure class="project-photo contain">
-          <img src="jobswithpickle_logo.jpeg" alt="Pickle company logo" />
-        </figure>
-        <div class="project-content">
-          <p class="project-meta">Pickle | Nov 2024 - May 2025</p>
-          <h2>Product Analytics and Dashboard Expansion</h2>
-          <p>Analyzed 20,000+ monthly user entries using SQL and Python tools, then expanded the reporting stack from 2 to 6 dashboards. Built clearer decision support for product and growth teams.</p>
-          <div class="tag-row">
-            <span class="tag">SQL</span>
-            <span class="tag">Pandas</span>
-            <span class="tag">Product Analytics</span>
-            <span class="tag">Dashboarding</span>
+    <article class="project-row">
+      <figure class="project-img">
+        <img src="photos/projects/computational-physics.png" alt="Computational physics intensity plot" style="object-position: center center;" />
+      </figure>
+      <div class="project-text">
+        <p class="project-meta">Computational Physics Coursework</p>
+        <h2>Computational Physics / Numerical Methods Portfolio</h2>
+        <p>A collection of six computational physics problems spanning Monte Carlo integration, Runge-Kutta and Bulirsch-Stoer solvers, random number generation, many-body simulation, 1D hydrodynamics, and radiative transfer. The largest study modeled blackbody radiation and gas-box transport using temperature-density optical depth data.</p>
+        <div class="tag-row">
+          <span class="tag">Monte Carlo</span>
+          <span class="tag">ODE Solvers</span>
+          <span class="tag">Hydrodynamics</span>
+          <span class="tag">Radiative Transfer</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="num">6</span>
+            <span class="lbl">Physics problems</span>
+          </div>
+          <div class="stat">
+            <span class="num">1</span>
+            <span class="lbl">Radiative transfer capstone</span>
           </div>
         </div>
-      </article>
-    </section>
+      </div>
+    </article>
+
+    <article class="project-row reversed">
+      <figure class="project-img">
+        <img src="photos/projects/utsw.png" alt="Cardiovascular volume tracking" />
+      </figure>
+      <div class="project-text">
+        <p class="project-meta">UT Southwestern Medical Center · Summer 2024</p>
+        <h2>Cardiovascular Volume Tracking in MATLAB</h2>
+        <p>Built a MATLAB pipeline to track heart chamber volumes from medical imaging data. Optimized the runtime from 8 hours to under 5 minutes, a 99.6% reduction that made the workflow practical for clinical use.</p>
+        <div class="tag-row">
+          <span class="tag">MATLAB</span>
+          <span class="tag">Biomedical Modeling</span>
+          <span class="tag">Cardiovascular</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="num">99.6%</span>
+            <span class="lbl">Runtime reduction</span>
+          </div>
+          <div class="stat">
+            <span class="num">8 hr to 5 min</span>
+            <span class="lbl">Processing time</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
   </main>
+
+  <script>
+    (() => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      document.body.classList.add('js-animate');
+      const targets = Array.from(document.querySelectorAll(
+        '.topbar, .page-head, .project-row'
+      ));
+      targets.forEach((el, i) => {
+        el.classList.add('reveal-target');
+        el.style.setProperty('--reveal-delay', `${(i % 3) * 60}ms`);
+      });
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('reveal-in');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -4% 0px' });
+      targets.forEach(el => observer.observe(el));
+    })();
+  </script>
 </body>
 </html>

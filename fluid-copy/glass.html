@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GLASS Profile - Hamza Hussain</title>
+  <title>GLASS / Hamza Hussain</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #fcfaf6;
+      --bg: #fefdfb;
       --ink: #161616;
       --muted: #5f5b56;
-      --line: rgba(22, 22, 22, 0.16);
+      --line: rgba(22, 22, 22, 0.14);
       --accent: maroon;
     }
 
@@ -23,263 +23,600 @@
       min-height: 100%;
       background: var(--bg);
       color: var(--ink);
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Space Mono', monospace;
     }
 
+    /* Nav */
     .topbar {
-      width: min(1120px, calc(100vw - 36px));
-      margin: 16px auto 10px;
+      width: min(1240px, calc(100vw - 48px));
+      margin: 20px auto 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.13em;
       font-size: 0.74rem;
     }
-
-    .topbar a {
+    .topbar .wordmark {
       color: var(--ink);
       text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 180ms ease;
-    }
-
-    .topbar a:hover { border-color: var(--ink); }
-
-    main {
-      width: min(1120px, calc(100vw - 36px));
-      margin: 0 auto 52px;
-      display: grid;
-      gap: 22px;
-    }
-
-    .page-head {
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 16px 0 14px;
-      display: grid;
-      gap: 8px;
-    }
-
-    .page-head h1 {
-      font-family: 'Zalando Sans Expanded', sans-serif;
-      color: var(--accent);
-      letter-spacing: 0.03em;
-      font-size: clamp(1.45rem, 2.8vw, 2.1rem);
-      font-weight: 500;
-      text-transform: uppercase;
-    }
-
-    .page-head p {
       font-family: 'Archivo', sans-serif;
+      font-weight: 400;
+      position: relative;
+    }
+    .topbar .wordmark::after,
+    .topbar nav a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -2px;
+      height: 1px; width: 100%;
+      background: var(--ink);
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 180ms ease;
+    }
+    .topbar .wordmark:hover::after { transform: scaleX(1); }
+    .topbar nav { display: flex; gap: 24px; }
+    .topbar nav a {
       color: var(--ink);
-      line-height: 1.62;
-      max-width: 80ch;
-      font-size: 0.95rem;
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 2px;
+    }
+    .topbar nav a:hover::after,
+    .topbar nav a.active::after { transform: scaleX(1); }
+
+    /* Layout */
+    main {
+      width: min(1240px, calc(100vw - 48px));
+      margin: 0 auto 100px;
     }
 
+    /* Mission hero */
+    .mission-block {
+      border-top: 1px solid var(--line);
+      padding: clamp(48px, 8vw, 96px) 0 clamp(40px, 7vw, 80px);
+    }
+    .mission-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .mission-statement {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(2.8rem, 7.5vw, 5.8rem);
+      font-weight: 500;
+      line-height: 1.06;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      margin-bottom: 32px;
+    }
+    .mission-statement em {
+      color: var(--accent);
+      font-style: normal;
+    }
+    .mission-sub {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(0.97rem, 1.5vw, 1.08rem);
+      line-height: 1.68;
+      max-width: 60ch;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
     .chip-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 7px;
-      margin-top: 2px;
+      gap: 8px;
     }
-
     .chip {
       border: 1px solid var(--line);
       border-radius: 999px;
-      padding: 4px 9px;
-      font-size: 0.72rem;
+      padding: 5px 13px;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #3f3b36;
-      font-family: 'Archivo', sans-serif;
-      background: #fcfaf7;
+      letter-spacing: 0.09em;
+      color: #4a4640;
+      font-family: 'Space Mono', monospace;
     }
 
-    .experience-list {
-      display: grid;
-      gap: 16px;
-    }
-
-    .experience-card {
-      display: grid;
-      grid-template-columns: 240px minmax(0, 1fr);
-      gap: 16px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-      padding: 14px;
-    }
-
-    .experience-photo {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      border-radius: 6px;
-      border: 1px solid rgba(22, 22, 22, 0.2);
-      overflow: hidden;
-      background: #f4f2ee;
-    }
-
-    .experience-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .experience-content {
-      display: grid;
-      gap: 8px;
-      align-content: start;
-    }
-
-    .experience-meta {
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      font-size: 0.72rem;
-      font-family: 'Archivo', sans-serif;
-    }
-
-    .experience-content h2 {
-      font-size: 1.03rem;
-      font-weight: 500;
-      letter-spacing: 0.01em;
-    }
-
-    .experience-content p {
-      font-family: 'Archivo', sans-serif;
-      font-size: 0.91rem;
-      line-height: 1.58;
-    }
-
-    .reflection {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-      padding: 14px;
-      display: grid;
-      gap: 9px;
-    }
-
-    .reflection h3 {
-      font-size: 1rem;
+    /* Section heading */
+    .section-heading {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(1.75rem, 4.4vw, 3.35rem);
       font-weight: 500;
       color: var(--accent);
-      letter-spacing: 0.01em;
+      letter-spacing: 0.02em;
       text-transform: uppercase;
+      line-height: 1.05;
+      padding: clamp(60px, 9vw, 108px) 0 clamp(24px, 3.5vw, 40px);
+      border-bottom: 1px solid var(--line);
     }
 
-    .reflection p {
-      font-family: 'Archivo', sans-serif;
-      font-size: 0.92rem;
-      line-height: 1.62;
-      max-width: 90ch;
+    /* Experience rows */
+    .xp-row {
+      display: grid;
+      grid-template-columns: 46% minmax(0, 1fr);
+      gap: clamp(32px, 5vw, 72px);
+      padding: clamp(48px, 7vw, 80px) 0;
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+    }
+    .xp-row.reversed {
+      grid-template-columns: minmax(0, 1fr) 46%;
+    }
+    .xp-row.reversed .xp-img { order: 2; }
+    .xp-row.reversed .xp-text { order: 1; }
+
+    .xp-img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border-radius: 4px;
+      background: #e8e4dc;
+    }
+    .xp-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 600ms cubic-bezier(.25,.46,.45,.94);
+    }
+    .xp-row:hover .xp-img img { transform: scale(1.04); }
+
+    .xp-text {
+      display: grid;
+      gap: 18px;
+      align-content: start;
+      padding-top: 6px;
+    }
+    .xp-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.71rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+    .xp-text h2 {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+      font-weight: 500;
+      line-height: 1.18;
+      letter-spacing: 0.005em;
+    }
+    .xp-text p {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(0.91rem, 1.3vw, 0.98rem);
+      line-height: 1.72;
+      color: #3a3730;
+      max-width: 50ch;
     }
 
-    .page-links {
+    .tag-row {
       display: flex;
-      gap: 9px;
       flex-wrap: wrap;
-      margin-top: 1px;
+      gap: 6px;
     }
-
-    .page-links a {
-      text-decoration: none;
-      color: var(--ink);
-      font-size: 0.73rem;
-      text-transform: uppercase;
-      letter-spacing: 0.11em;
+    .tag {
       border: 1px solid var(--line);
       border-radius: 999px;
-      padding: 7px 11px 6px;
-      transition: transform 140ms ease, background 180ms ease;
+      padding: 4px 11px;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #4a4640;
+      font-family: 'Space Mono', monospace;
     }
 
-    .page-links a:hover {
-      transform: translateY(-1px);
-      background: #fff;
+    /* Stats */
+    .stat-row {
+      display: flex;
+      gap: 44px;
+      flex-wrap: wrap;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      margin-top: 4px;
+    }
+    .stat .num {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat .lbl {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      color: var(--muted);
+      margin-top: 8px;
     }
 
-    @media (max-width: 900px) {
-      .experience-card { grid-template-columns: 1fr; }
-      .experience-photo { max-width: 260px; }
+    /* Service feature */
+    .service-row {
+      padding: clamp(56px, 8vw, 96px) 0;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      gap: 22px;
+      max-width: 900px;
+    }
+    .service-big {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(4.5rem, 11vw, 9rem);
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+    }
+    .service-sub {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .service-desc {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(0.93rem, 1.4vw, 1.01rem);
+      line-height: 1.72;
+      color: #3a3730;
+      max-width: 66ch;
     }
 
-    @media (max-width: 640px) {
-      .page-head p,
-      .experience-content p,
-      .reflection p { font-size: 0.9rem; }
-      .experience-content h2 { font-size: 1rem; }
+    /* Closing */
+    .closing {
+      padding: clamp(64px, 9vw, 112px) 0 clamp(48px, 7vw, 80px);
+      border-top: 2px solid var(--ink);
+      display: grid;
+      gap: 24px;
+      max-width: 860px;
+    }
+    .closing-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+    .closing p {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(1.02rem, 1.8vw, 1.18rem);
+      line-height: 1.76;
+      color: var(--ink);
+    }
+    .closing p strong {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* Scroll animations */
+    .js-animate .reveal-target {
+      opacity: 0;
+      transform: translateY(20px);
+      transition:
+        opacity 820ms cubic-bezier(.22,.61,.36,1),
+        transform 820ms cubic-bezier(.22,.61,.36,1);
+      transition-delay: var(--reveal-delay, 0ms);
+      will-change: opacity, transform;
+    }
+    .js-animate .reveal-target.reveal-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .js-animate .reveal-target { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .xp-row,
+      .xp-row.reversed {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: clamp(36px, 6vw, 56px) 0;
+      }
+      .xp-row.reversed .xp-img { order: 0; }
+      .xp-row.reversed .xp-text { order: 0; }
+      .xp-img { aspect-ratio: 16 / 9; }
+    }
+    @media (max-width: 560px) {
+      .topbar nav { gap: 14px; }
+      .mission-statement { font-size: clamp(2.2rem, 9vw, 3.4rem); }
+      .section-heading { font-size: clamp(1.7rem, 7.5vw, 2.8rem); }
+      .service-big { font-size: clamp(3.2rem, 13vw, 6rem); }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
-    <a href="index.html">Back to Main</a>
-    <span>GLASS Profile</span>
+    <a class="wordmark" href="index.html">Hamza Hussain</a>
+    <nav>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="glass.html" class="active">GLASS</a>
+    </nav>
   </header>
 
   <main>
-    <section class="page-head">
-      <h1>Global Competency / GLASS</h1>
-      <p>GLASS has shaped how I connect technical work with social context. Through study-away programs in Abu Dhabi, Hanoi, and Seoul, I explored how culture, policy, and engineering can work together to support more equitable development.</p>
+
+    <!-- Mission -->
+    <section class="mission-block">
+      <p class="mission-eyebrow">GLASS /</p>
+      <h1 class="mission-statement">
+        Global Leaders<br>
+        <em>&amp; Scholars</em>
+        in STEM 
+      </h1>
+      <p class="mission-sub">Four countries. Three years of research, leadership, and service. One constant: using rigorous tools to address real human problems, and building community wherever I go.</p>
       <div class="chip-row">
-        <span class="chip">Global Learning</span>
-        <span class="chip">Sustainability</span>
-        <span class="chip">Intercultural Communication</span>
-        <span class="chip">Applied Research</span>
-      </div>
-      <div class="page-links">
-        <a href="projects.html">View Projects</a>
-        <a href="about.html">Back to Resume</a>
+        <a class="chip" href="https://engineering.nyu.edu/student/hamza-hussain" target="_blank" rel="noreferrer" style="text-decoration:none; color:inherit; transition: color 160ms ease, border-color 160ms ease;" onmouseover="this.style.color='maroon'; this.style.borderColor='maroon';" onmouseout="this.style.color=''; this.style.borderColor='';">GLASS Profile</a>
       </div>
     </section>
 
-    <section class="experience-list" aria-label="Global competency experiences">
-      <article class="experience-card">
-        <figure class="experience-photo">
-          <img src="nyu.jpeg" alt="NYU campus image used for Abu Dhabi study away profile" />
-        </figure>
-        <div class="experience-content">
-          <p class="experience-meta">NYU Abu Dhabi Study Away | January to May</p>
-          <h2>Academic Expansion + Early Research Exposure</h2>
-          <p>I studied at NYU Abu Dhabi for one semester and took Linear Algebra, Ordinary Differential Equations, Electricity and Magnetism, Computational Physics, Futsal, and a research assistantship in the Astroparticle Physics Lab.</p>
-          <p>Living in the UAE expanded my cultural perspective, and the coursework changed my technical direction. Computational Physics introduced me to simulation-driven research, while the lab experience gave me direct insight into what an academic research career looks like day to day.</p>
-        </div>
-      </article>
+    <!-- Global Competency -->
+    <h2 class="section-heading">Global Competency</h2>
 
-      <article class="experience-card">
-        <figure class="experience-photo">
-          <img src="IMG_0873.jpeg" alt="Vietnam program photo" />
-        </figure>
-        <div class="experience-content">
-          <p class="experience-meta">Vietnam Summer Program (Hanoi) | Digital Twin Project</p>
-          <h2>Sustainable Cities Through Simulation</h2>
-          <p>In Hanoi, I worked on a digital twin project focused on city traffic and urban sustainability, aligned with UN SDG 11. The program also included historical and linguistic study that deepened our understanding of Vietnamese culture.</p>
-          <p>This experience connected two interests I previously kept separate: data and sustainability. Using math and physics-based simulation to approach social problems showed me how technical tools can directly support public wellbeing.</p>
+    <article class="xp-row">
+      <figure class="xp-img">
+        <img src="photos/glass/abu-dhabi.jpeg" alt="NYU Abu Dhabi campus" />
+      </figure>
+      <div class="xp-text">
+        <p class="xp-meta">NYU Abu Dhabi · Jan to May 2024</p>
+        <h3>Academic Expansion in the UAE</h3>
+        <p>Semester abroad at NYU Abu Dhabi. Computational Physics opened the door to simulation-driven research and changed my technical direction. Witnessing the UAE's 50-year transformation from desert to global metropolis was a live study in SDG 11.</p>
+        <div class="tag-row">
+          <span class="tag">UAE</span>
+          <span class="tag">Computational Physics</span>
+          <span class="tag">SDG 9 · 11</span>
         </div>
-      </article>
+      </div>
+    </article>
 
-      <article class="experience-card">
-        <figure class="experience-photo">
-          <img src="IMG_6368.jpeg" alt="Seoul winter study program photo" />
-        </figure>
-        <div class="experience-content">
-          <p class="experience-meta">Hanyang University International Winter School | Seoul</p>
-          <h2>UN SDGs + Social Entrepreneurship in Korea</h2>
-          <p>At Hanyang University, I studied basic Korean and a course on the UN Sustainable Development Goals. Language learning and field visits helped me understand Korean social values and current development priorities.</p>
-          <p>Visits to Hisbeans, MYSC, and Donghwa made social entrepreneurship tangible. Seeing disability-inclusive hiring, mission-driven incubation, and values-based business in practice broadened how I evaluate impact in both nonprofit and private sectors.</p>
+    <article class="xp-row reversed">
+      <figure class="xp-img">
+        <img src="photos/glass/vietnam.jpeg" alt="Traffic observation in downtown Hanoi" />
+      </figure>
+      <div class="xp-text">
+        <p class="xp-meta">Hanoi, Vietnam · Summer 2024</p>
+        <h3>Sustainable Cities Through Simulation</h3>
+        <p>Built a digital twin of Hanoi's traffic flow to model emission reduction, tied to UN SDG 11. Vietnam sees roughly 70,000 pollution-related deaths per year. This was the first time I saw math address a problem that size.</p>
+        <div class="tag-row">
+          <span class="tag">Vietnam</span>
+          <span class="tag">Digital Twin</span>
+          <span class="tag">UN SDG 11</span>
         </div>
-      </article>
+      </div>
+    </article>
+
+    <article class="xp-row">
+      <figure class="xp-img">
+        <img src="photos/glass/korea.jpeg" alt="Seoul, South Korea" />
+      </figure>
+      <div class="xp-text">
+        <p class="xp-meta">Hanyang University · Seoul, South Korea</p>
+        <h3>SDGs and Social Entrepreneurship in Korea</h3>
+        <p>Studied UN SDGs and basic Korean at Hanyang University. Field visits to Hisbeans (disability-inclusive hiring), MYSC (impact incubator), and Donghwa made social entrepreneurship concrete. Language learning added humility to how I understand culture.</p>
+        <div class="tag-row">
+          <span class="tag">South Korea</span>
+          <span class="tag">UN SDGs</span>
+          <span class="tag">Social Enterprise</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Leadership -->
+    <h2 class="section-heading">Leadership</h2>
+
+    <article class="xp-row reversed">
+      <figure class="xp-img">
+        <img src="photos/glass/msa-purple.PNG" alt="NYU Tandon Muslim Student Association" />
+      </figure>
+      <div class="xp-text">
+        <p class="xp-meta">NYU Tandon MSA · Sep 2025 to Present</p>
+        <h3>Co-President, Muslim Student Association</h3>
+        <p>Manage a team of 11 to serve NYU Tandon's Muslim community. Organize professional panels, speaker events, and city-wide collaborations. Spearheaded Charity Week fundraising and grew into this role over three semesters on the executive board.</p>
+        <div class="tag-row">
+          <span class="tag">Team Leadership</span>
+          <span class="tag">Community Building</span>
+          <span class="tag">SDGs 1 to 5</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="num">11</span>
+            <span class="lbl">Team members</span>
+          </div>
+          <div class="stat">
+            <span class="num">$14,683</span>
+            <span class="lbl">Raised for global aid</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="xp-row">
+      <figure class="xp-img">
+        <img src="photos/glass/dci.JPG" alt="Boston Crusaders drum corps" />
+      </figure>
+      <div class="xp-text">
+        <p class="xp-meta">Boston Crusaders · Drum Corps International</p>
+        <h3>Performer and Teaching Artist</h3>
+        <p>Marched with the Boston Crusaders, a nationally competitive drum corps. Toured North America and taught musicianship to students of all ages. The precision and ensemble thinking carry directly into how I approach research and collaboration.</p>
+        <div class="tag-row">
+          <span class="tag">Performance</span>
+          <span class="tag">Mentorship</span>
+          <span class="tag">Discipline</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="num">90+</span>
+            <span class="lbl">Performances</span>
+          </div>
+          <div class="stat">
+            <span class="num">1,000+</span>
+            <span class="lbl">Students taught</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="xp-row reversed">
+      <figure class="xp-img">
+        <img src="photos/glass/vip-mural.jpeg" alt="Interactive physical computing mural" />
+      </figure>
+      <div class="xp-text">
+        <p class="xp-meta">NYU Tandon · Creative Physical Computing</p>
+        <h3>Interactive Arduino Mural for Elementary Education</h3>
+        <p>Designed and built an Arduino-powered interactive mural for elementary school students. Bridging physical art and computation is the same instinct I bring to research: making hard ideas feel accessible.</p>
+        <div class="tag-row">
+          <span class="tag">Arduino</span>
+          <span class="tag">Physical Computing</span>
+          <span class="tag">Education</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Professional Development -->
+    <h2 class="section-heading">Professional Development</h2>
+
+    <article class="xp-row">
+      <figure class="xp-img">
+        <img src="photos/glass/pickle-new.png" alt="Pickle healthcare job platform" style="object-position: 14% center;" />
+      </figure>
+      <div class="xp-text">
+        <p class="xp-meta">Pickle / NYU Future Labs · Nov 2024 to May 2025</p>
+        <h3>Data Science Internship at Healthcare Startup</h3>
+        <p>Analyzed 20,000+ monthly user entries across 5,700+ users at a healthcare job platform. Built dashboards in Hex using Pandas and SQL, expanded reporting from 2 to 6 dashboards, and identified demographic patterns in the matching algorithm to support equity in healthcare hiring.</p>
+        <div class="tag-row">
+          <span class="tag">Python</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">SQL</span>
+          <span class="tag">SDG 3 · 10</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="num">3x</span>
+            <span class="lbl">Dashboard growth</span>
+          </div>
+          <div class="stat">
+            <span class="num">20k+</span>
+            <span class="lbl">Monthly entries analyzed</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="xp-row reversed">
+      <figure class="xp-img">
+        <img src="photos/glass/sase.jpeg" alt="SASE Conference Boston" />
+      </figure>
+      <div class="xp-text">
+        <p class="xp-meta">SASE Conference · Boston · Oct 2024</p>
+        <h3>Society of Asian Scientists and Engineers</h3>
+        <p>Attended the national SASE convention in Boston. Networked with aerospace engineers, construction firms, and research labs. Practiced my elevator pitch, interviewed on-site, and left with an internship offer.</p>
+        <div class="tag-row">
+          <span class="tag">Networking</span>
+          <span class="tag">SDG 5 · 9</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="num">1</span>
+            <span class="lbl">Internship offer received</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Service -->
+    <h2 class="section-heading">Commitment to Service</h2>
+
+    <div class="service-row">
+      <p class="xp-meta">NYC Charity Week · Oct 2024 to Jan 2025</p>
+      <div>
+        <div class="service-big">$14,683</div>
+        <p class="service-sub">Raised worldwide for schools, medical aid, and orphan support</p>
+      </div>
+      <p class="service-desc">Co-organized a week of fundraising events at NYU Tandon: gala, auction, trivia night, sports day, gaming night. Hosted the Charity Week team for end-of-year reflections. Funds directed to urgent aid for children and displaced communities through Charity Week International. NYU placed among the top-raising institutions worldwide.</p>
+      <div class="tag-row">
+        <span class="tag">Charity Week International</span>
+        <span class="tag">SDGs 1 to 5</span>
+        <span class="tag">Global Aid</span>
+      </div>
+    </div>
+
+    <!-- Academic -->
+    <h2 class="section-heading">Academic Excellence</h2>
+
+    <article class="xp-row">
+      <figure class="xp-img">
+        <img src="photos/glass/pacman.png" alt="PaQman quantum supply chain optimizer" style="object-position: left center;" />
+      </figure>
+      <div class="xp-text">
+        <p class="xp-meta">NYU Quantum Hackathon · Fall 2023</p>
+        <h3>PaQman / Quantum Supply Chain Optimizer</h3>
+        <p>Built a quantum routing solution for last-mile logistics as part of NYU's quantum hackathon. Classical routing is intractable at scale; the quantum approach cut route complexity and truck emissions. Preceded by a 2-week intensive and two Qiskit certificates.</p>
+        <div class="tag-row">
+          <span class="tag">Qiskit</span>
+          <span class="tag">Quantum Computing</span>
+          <span class="tag">Hackathon</span>
+          <span class="tag">Optimization</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="num">2</span>
+            <span class="lbl">Qiskit certificates</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="xp-row reversed">
+      <figure class="xp-img">
+        <img src="photos/glass/haloscope-astroparticle.png" alt="Haloscope dark matter detection setup" />
+      </figure>
+      <div class="xp-text">
+        <p class="xp-meta">NYUAD Astroparticle Physics Lab · Jan to May 2024</p>
+        <h3>Axion Dark Matter Detection</h3>
+        <p>Research assistantship at NYUAD's Astroparticle Physics Lab, working toward detecting axions, a dark matter candidate comprising roughly 80% of the universe's matter. Designed a detection model 'Haloscope' to detect a dark matter particle called Axions.</p>
+        <div class="tag-row">
+          <span class="tag">Dark Matter</span>
+          <span class="tag">Computational Physics</span>
+          <span class="tag">SDG 14</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Closing -->
+    <section class="closing">
+      <p class="closing-eyebrow">What drives the work</p>
+      <p>Across fusion reactors, quantum optics labs, Hanoi traffic grids, and communities in Brooklyn: <strong>rigorous tools, human problems.</strong> </p>
     </section>
 
-    <section class="reflection">
-      <h3>What GLASS Means in My Work</h3>
-      <p>These experiences continue to shape how I choose projects: I look for work where technical depth and social impact are both present. Whether I am building optimization tools or analyzing product data, I try to keep global context and human outcomes visible in the process.</p>
-    </section>
   </main>
+
+  <script>
+    (() => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      document.body.classList.add('js-animate');
+      const targets = Array.from(document.querySelectorAll(
+        '.topbar, .mission-block, .section-heading, .xp-row, .service-row, .closing'
+      ));
+      targets.forEach((el, i) => {
+        el.classList.add('reveal-target');
+        el.style.setProperty('--reveal-delay', `${(i % 4) * 55}ms`);
+      });
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('reveal-in');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -4% 0px' });
+      targets.forEach(el => observer.observe(el));
+    })();
+  </script>
 </body>
 </html>

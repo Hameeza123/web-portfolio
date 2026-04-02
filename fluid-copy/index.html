@@ -3,250 +3,197 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hamza Hussain — Water Hero</title>
+  <title>Hamza Hussain / Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Archivo:wght@300;400;500&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    :root { --bg: #ffffff; --accent: maroon; }
+    :root {
+      --bg: #fefdfb;
+      --accent: maroon;
+      --water-gradient-stop1: rgba(89, 137, 154, 0.35); /* APPLESAUCE */
+      --water-gradient-stop2: rgba(100, 121, 134, 0.55);
+      --water-gradient-stop3: rgba(101, 133, 163, 0.75);
+      --water-gradient-stop4: rgba(95, 115, 138, 0.80);
+      --water-gradient-stop5: rgba(89, 108, 128, 0.85);
+      --water-gradient-stop6: rgb(91, 104, 130);
+    }
     * { box-sizing: border-box; }
     html, body { width:100%; height:100%; margin:0; padding:0; overflow:hidden; background: var(--bg); }
 
-    .hero {
+    /* ── Canvas ── */
+    .water-wrap {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 0;
+    }
+    #fluid-canvas { width:100%; height:100%; display:block; }
+
+    /* ── Topbar ── */
+    .topbar {
+      position: absolute;
+      top: 18px;
+      left: 0; right: 0;
+      padding: 0 clamp(18px,4vw,32px);
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #0f0f0f;
+      z-index: 3;
+      font-family: 'Space Mono', monospace;
+    }
+    .topbar nav { display: flex; gap: 16px; }
+    .topbar a { color: #0f0f0f; text-decoration: none; position: relative; }
+    .topbar .wordmark { font-family: 'Archivo', sans-serif; font-weight: 400; }
+    .topbar a::after, .wordmark::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -4px;
+      height: 1px; width: 100%;
+      background: #0f0f0f;
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 180ms ease;
+    }
+    .topbar a:hover::after, .wordmark:hover::after { transform: scaleX(1); }
+
+    .divider {
+      position: absolute;
+      top: 52px; left: 0; right: 0;
+      height: 1px;
+      background: rgba(0,0,0,0.08);
+      z-index: 2;
+    }
+
+    /* ── Main content block ── */
+    .content {
       position: absolute;
       top: 96px;
-      left: 0;
-      right: 0;
+      left: 0; right: 0;
       padding: 0 clamp(18px, 4vw, 32px);
       max-width: 1320px;
       margin: 0 auto;
-      font-family: 'Space Grotesk','Archivo',sans-serif;
-      color: #0f0f0f;
-      pointer-events: none;
       z-index: 2;
+      pointer-events: none;
     }
-    .hero h1 {
+
+    /* ── Eyebrow ── */
+    .eyebrow {
+      font-family: 'Space Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.8rem;
+      color: #6a675f;
+      margin-bottom: 8px;
+      opacity: 0;
+      animation: fadeIn 500ms ease 400ms both;
+    }
+
+    /* ── Heading ── */
+    .hero-h1 {
       margin: 0;
+      font-family: 'Space Mono', monospace;
       font-size: clamp(2.8rem, 6vw, 3.8rem);
       letter-spacing: 0.01em;
       line-height: 1.15;
-      font-weight: 600;
+      font-weight: 400;
+      color: #0f0f0f;
+    }
+    .dot { color: var(--accent); margin-left: 3px; }
+
+    .ph {
+      display: inline;
+      opacity: 0;
+      /* inline elements can't transform; wrap in inline-block trick via wrapper */
+    }
+    .ph-w {
+      display: inline;
+      opacity: 0;
+      animation: fadeIn 600ms ease both;
+    }
+    .ph-w:nth-child(1) { animation-delay: 650ms; }
+    .ph-w:nth-child(2) { animation-delay: 820ms; }
+    .ph-w:nth-child(3) { animation-delay: 1020ms; }
+    .ph-w:nth-child(4) { animation-delay: 1190ms; }
+    .ph-w:nth-child(5) { animation-delay: 1390ms; }
+    .ph-w:nth-child(6) { animation-delay: 1560ms; }
+    .ph-w:nth-child(7) { animation-delay: 1730ms; }
+    .ph-w:nth-child(8) { animation-delay: 1900ms; }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
 
-    .dot { color: var(--accent); margin-left: 4px; }
-    .eyebrow {
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size:0.8rem;
-      color: #6a675f;
-      margin-bottom: 6px;
-    }
-
-    .topbar {
-      position:absolute;
-      top:18px;
-      left:0;
-      right:0;
-      padding: 0 clamp(18px,4vw,32px);
-      max-width:1320px;
-      margin:0 auto;
-      display:flex;
-      justify-content: space-between;
-      align-items:center;
-      font-size:0.95rem;
-      text-transform: uppercase;
-      letter-spacing:0.2em;
-      color:#0f0f0f;
-      z-index:3;
-      font-family:'Archivo', 'Helvetica Neue',sans-serif;
-    }
-    .topbar nav { display:flex; gap:16px; }
-    .topbar a { color:#0f0f0f; text-decoration:none; position:relative; }
-    .topbar a::after, .wordmark::after {
-      content:'';
-      position:absolute;
-      left:0;
-      bottom:-4px;
-      height:1px;
-      width:100%;
-      background:#0f0f0f;
-      transform-origin:left;
-      transform:scaleX(0);
-      transition:transform 180ms ease;
-    }
-    .topbar a:hover::after, .wordmark:hover::after { transform:scaleX(1); }
-
-    .divider {
-      position:absolute;
-      top:52px;
-      left:0;
-      right:0;
-      height:1px;
-      background: rgba(0,0,0,0.08);
-      z-index:2;
-    }
-
-    .water-wrap {
-      width: 100%;
-      height: 100vh;
-      position: relative;
-      overflow:hidden;
-      background: var(--bg);
-    }
-    #fluid-canvas { position:absolute; inset:0; width:100%; height:100%; display:block; }
-
-    .portal-dock {
-      position: absolute;
-      left: clamp(18px, 4vw, 32px);
-      right: clamp(18px, 4vw, 32px);
-      top: 56%;
-      bottom: auto;
-      transform: translateY(-50%);
-      z-index: 4;
-      display: flex;
-      gap: clamp(28px, 7vw, 120px);
-      justify-content: center;
-      overflow-x: auto;
-      padding-bottom: 6px;
-      -webkit-overflow-scrolling: touch;
-    }
-    .portal-dock::-webkit-scrollbar { height: 8px; }
-    .portal-dock::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.18); border-radius: 999px; }
-
-    .portal-card {
-      position: relative;
-      flex: 0 0 clamp(108px, 16vw, 220px);
-      aspect-ratio: 1 / 1;
-      border: none;
-      border-radius: 8px;
+    /* ── Nav links in heading ── */
+    .hero-link {
+      color: inherit;
       text-decoration: none;
-      color: #ffffff;
-      overflow: hidden;
-      background: #222;
-      opacity: 0;
-      transform: translateY(14px) scale(0.985);
-      animation: portalIn 900ms cubic-bezier(.22,.9,.32,1) forwards;
+      display: inline;
+      transition: color 180ms ease;
+      pointer-events: all;
     }
-    .portal-card:nth-child(1) { animation-delay: 900ms; }
-    .portal-card:nth-child(2) { animation-delay: 1650ms; }
-    .portal-card:nth-child(3) { animation-delay: 2400ms; }
-    .portal-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 260ms ease;
+    .hero-link:hover {
+      color: var(--accent);
     }
-    .portal-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.66), rgba(0,0,0,0.18));
+
+    /* ── Nujabes accent ── */
+    .nujabes-accent {
+      position: fixed;
+      top: 52px;
+      right: 0;
+      height: calc(100vh - 52px);
+      width: auto;
+      transform: scaleX(-1);
+      opacity: 0.13;
       z-index: 1;
-      opacity: 0;
-      transition: opacity 220ms ease;
-    }
-    .portal-card:hover img { transform: scale(1.03); }
-    .portal-card:hover::before,
-    .portal-card:focus-visible::before { opacity: 1; }
-
-    .portal-label {
-      position: absolute;
-      left: 12px;
-      right: 12px;
-      bottom: 10px;
-      z-index: 2;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 220ms ease, transform 220ms ease;
       pointer-events: none;
-    }
-    .portal-card:hover .portal-label,
-    .portal-card:focus-visible .portal-label {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .portal-label h2 {
-      margin: 0 0 3px;
-      font-family: 'Zalando Sans Expanded', sans-serif;
-      font-size: clamp(0.92rem, 1.7vw, 1.1rem);
-      letter-spacing: 0.03em;
-    }
-    .portal-label p {
-      margin: 0;
-      font-family: 'Archivo', sans-serif;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      opacity: 0.9;
+      object-fit: contain;
+      object-position: top right;
+      clip-path: inset(0 0 160px 0);
     }
 
-    @keyframes portalIn {
-      0% {
-        opacity: 0;
-        transform: translateY(14px) scale(0.985);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
+    /* ── Responsive ── */
     @media (max-width: 760px) {
-      .hero h1 { font-size: clamp(2rem, 6.4vw, 3rem); }
-      .portal-card { flex-basis: clamp(110px, 34vw, 170px); }
+      .hero-h1 { font-size: clamp(2rem, 6.4vw, 3rem); }
+    }
+    @media (max-height: 600px) {
+      .hero-h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); }
     }
   </style>
 </head>
 <body>
+  <div class="water-wrap" aria-hidden="true">
+    <canvas id="fluid-canvas"></canvas>
+  </div>
+  <img class="nujabes-accent" src="photos/landing/nujabes.jpg" alt="" aria-hidden="true" />
+
   <header class="topbar">
     <a class="wordmark" href="landing.html">Hamza Hussain</a>
-    <nav class="nav-links">
-      <a href="mailto:hello@hamzahussain.com">Email</a>
-      <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+    <nav>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="glass.html">GLASS</a>
     </nav>
   </header>
   <div class="divider"></div>
 
-  <div class="hero">
-    <div class="eyebrow">Portfolio /</div>
-    <h1>computational math<span class="dot">•</span> physics-informed interactions<span class="dot">•</span> global anthropology<span class="dot">•</span></h1> 
-  </div>
-
-  <div class="water-wrap" aria-hidden="true">
-    <canvas id="fluid-canvas"></canvas>
-  </div>
-
-  <section class="portal-dock" aria-label="Site sections">
-    <a class="portal-card" href="about.html">
-      <img src="2FA1A268-BED9-4A4A-8495-936F20172BDA.JPG" alt="About me section" />
-      <div class="portal-label">
-        <h2>About Me</h2>
-        <p>Resume + Education</p>
-      </div>
-    </a>
-
-    <a class="portal-card" href="projects.html">
-      <img src="Wendelstein-7-AS-is-an-advanced-stellarator-fusion-experiment-with-modular-magnetic-field.png" alt="Projects section" />
-      <div class="portal-label">
-        <h2>Projects</h2>
-        <p>Work + Research</p>
-      </div>
-    </a>
-
-    <a class="portal-card" href="glass.html">
-      <img src="IMG_6368.jpeg" alt="GLASS section" />
-      <div class="portal-label">
-        <h2>GLASS</h2>
-        <p>Leadership + Story</p>
-      </div>
-    </a>
-  </section>
+    <div class="content">
+      <div class="eyebrow">Portfolio /</div>
+      <h1 class="hero-h1">
+        <span class="ph-w"><a class="hero-link" href="projects.html">computational math</a></span><span class="ph-w"><span class="dot">•</span> </span><span class="ph-w"><a class="hero-link" href="projects.html">physics-informed interactions</a></span><span class="ph-w"><span class="dot">•</span> </span><span class="ph-w"><a class="hero-link" href="glass.html">global anthropology</a></span><span class="ph-w"><span class="dot">•</span> </span><span class="ph-w"><a class="hero-link" href="about.html">lifelong learning</a></span><span class="ph-w"><span class="dot">•</span></span>
+      </h1>
+    </div>
 
   <script src="fluid-simulation.js"></script>
   <script>
-    function loop(){
+    function loop() {
       window.FluidSimulation.step();
       window.FluidSimulation.draw();
       requestAnimationFrame(loop);
@@ -254,6 +201,28 @@
     window.addEventListener('DOMContentLoaded', () => {
       window.FluidSimulation.init();
       loop();
+
+      // Idle auto-drops when no interaction
+      let lastInteraction = Date.now();
+      const c = document.getElementById('fluid-canvas');
+      ['mousemove','mousedown','touchstart','touchmove'].forEach(e =>
+        c.addEventListener(e, () => { lastInteraction = Date.now(); }, { passive: true })
+      );
+      function idleDrop() {
+        if (Date.now() - lastInteraction > 1400) {
+          const canvas = window.FluidSimulation.getCanvas();
+          if (canvas) {
+            const count = 1 + Math.floor(Math.random() * 2);
+            for (let i = 0; i < count; i++) {
+              const dropX = (0.1 + Math.random() * 0.8) * canvas.width;
+              window.FluidSimulation.addDisturbance(dropX, 0);
+              createSplash(dropX);
+            }
+          }
+        }
+        setTimeout(idleDrop, 1800 + Math.random() * 2000);
+      }
+      setTimeout(idleDrop, 3200);
     });
   </script>
 </body>
