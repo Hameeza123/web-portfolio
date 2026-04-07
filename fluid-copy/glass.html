@@ -120,6 +120,12 @@
       letter-spacing: 0.09em;
       color: #4a4640;
       font-family: 'Space Mono', monospace;
+      text-decoration: none;
+      transition: color 160ms ease, border-color 160ms ease;
+    }
+    .chip:hover {
+      color: var(--accent);
+      border-color: var(--accent);
     }
 
     /* Section heading */
@@ -395,8 +401,8 @@
       </h1>
       <p class="mission-sub">Four countries. Three years of research, leadership, and service. One constant: using rigorous tools to address real human problems, and building community wherever I go.</p>
       <div class="chip-row">
-        <a class="chip" href="https://engineering.nyu.edu/student/hamza-hussain" target="_blank" rel="noreferrer" style="text-decoration:none; color:inherit; transition: color 160ms ease, border-color 160ms ease;" onmouseover="this.style.color='maroon'; this.style.borderColor='maroon';" onmouseout="this.style.color=''; this.style.borderColor='';">GLASS Profile</a>
-        <a class="chip" href="#glass-project" style="text-decoration:none; color:inherit; transition: color 160ms ease, border-color 160ms ease;" onmouseover="this.style.color='maroon'; this.style.borderColor='maroon';" onmouseout="this.style.color=''; this.style.borderColor='';">GLASS Project</a>
+        <a class="chip" href="https://engineering.nyu.edu/student/hamza-hussain" target="_blank" rel="noreferrer">GLASS Profile</a>
+        <a class="chip" href="#glass-project">GLASS Project</a>
       </div>
     </section>
 
