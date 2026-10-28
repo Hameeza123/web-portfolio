@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('flame-on');</script>
   <style>
     :root {
       --bg: #ffffff;
@@ -19,6 +20,12 @@
     img.full {
       height: 100vh; width: auto; object-fit: contain; display: block;
     }
+    #flame-canvas {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 1;
+    }
+    .flame-on img.full { visibility: hidden; }
+    html:not(.flame-on) #flame-canvas { display: none; }
 
     .text-stack {
       position: absolute;
@@ -46,7 +53,7 @@
       opacity: 0;
       transform: translateY(8px);
       animation: fadeSlide 0.8s ease forwards;
-      animation-delay: 1s;
+      animation-delay: 1.2s;
     }
     .subtext {
       position: relative;
@@ -64,7 +71,7 @@
       opacity: 0;
       transform: translateY(8px);
       animation: fadeSlide 0.8s ease forwards;
-      animation-delay: 2s;
+      animation-delay: 1.8s;
     }
     .subtext::after {
       content: '';
@@ -117,9 +124,11 @@
 </head>
 <body>
   <img class="full" src="photos/landing/nujabes.jpg" alt="Nujabes" />
+  <canvas id="flame-canvas" data-src="photos/landing/nujabes-cutout.webp" aria-hidden="true"></canvas>
   <div class="text-stack">
     <div class="text-main">Hamza&nbsp;Hussain</div>
     <a class="subtext" href="index.html">view my work</a>
   </div>
+  <script src="flame-bloom.js"></script>
 </body>
 </html>
