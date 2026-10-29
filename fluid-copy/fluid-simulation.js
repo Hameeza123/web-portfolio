@@ -3,7 +3,7 @@ const N = 200; // number of points
 const dx = 1.0;
 const dt = 0.06; // smaller time step for smoother animation
 const g = 1; // gravity (slower)
-const damping = 0.9993; // more damping
+const damping = 0.985; // high enough that the constant small kicks stay choppy instead of swelling
 
 // --- State arrays ---
 let h = new Array(N).fill(0); // height
@@ -36,13 +36,24 @@ function initFluidSimulation() {
   // --- Mouse event listeners ---
   canvas.addEventListener('mousemove', e => {
     const rect = canvas.getBoundingClientRect();
-    mouseX = e.clientX - rect.left;
-    mouseY = e.clientY - rect.top;
+    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+    // moving across the surface leaves a wake
+    if (mouseX !== null) {
+      const i = Math.floor((x / canvas.width) * N);
+      const surfaceY = canvas.height * (1 - 0.12) + (h[i] || 0);
+      if (i > 2 && i < N-2 && Math.abs(y - surfaceY) < 60) {
+        const push = Math.max(-6, Math.min(6, (y - mouseY) * 0.25 + Math.abs(x - mouseX) * 0.08));
+        v[i-1] += push * 0.5; v[i] += push; v[i+1] += push * 0.5;
+      }
+    }
+    mouseX = x;
+    mouseY = y;
   });
   
   canvas.addEventListener('mouseleave', () => {
     mouseX = null;
     mouseY = null;
+    mouseDown = false;
   });
   
   canvas.addEventListener('mousedown', e => {
@@ -52,7 +63,8 @@ function initFluidSimulation() {
     addDisturbance(x, mouseY || (canvas.height * 0.7));
     createSplash(x);
   });
-  canvas.addEventListener('mouseup', () => mouseDown = false);
+  // listen on window: a press released outside the water used to stay "down" and keep pulling hard
+  window.addEventListener('mouseup', () => mouseDown = false);
   
   // --- Resize handler ---
   function resize() {
@@ -75,8 +87,22 @@ function stepFluid() {
     const wave =
       2.5 * Math.sin(2 * Math.PI * (x * 0.7 + t * 0.18)) +
       1.5 * Math.sin(2 * Math.PI * (x * 1.3 - t * 0.11)) +
-      1.0 * Math.sin(2 * Math.PI * (x * 2.1 + t * 0.07));
-    h[i] += wave * 0.012; // Small amplitude
+      1.0 * Math.sin(2 * Math.PI * (x * 2.1 + t * 0.07)) +
+      0.8 * Math.sin(2 * Math.PI * (x * 4.7 - t * 0.31)) +
+      0.5 * Math.sin(2 * Math.PI * (x * 8.3 + t * 0.47));
+    h[i] += wave * 0.012;
+  }
+
+  // Turbulence: a few small random kicks every frame, spread over neighbours so they ripple
+  // outward instead of spiking, plus an occasional gust that shoves a stretch of surface
+  for (let k = 0; k < 3; k++) {
+    const i = 3 + Math.floor(Math.random() * (N - 6));
+    const kick = (Math.random() - 0.5) * 2.6;
+    v[i-2] += kick * 0.25; v[i-1] += kick * 0.6; v[i] += kick; v[i+1] += kick * 0.6; v[i+2] += kick * 0.25;
+  }
+  if (Math.random() < 0.004) {
+    const c = Math.floor(Math.random() * N), w = 6 + Math.random() * 14, push = (Math.random() - 0.5) * 2;
+    for (let i = 1; i < N-1; i++) v[i] += push * Math.exp(-(((i - c) / w) ** 2));
   }
   
   // Mouse gravity well: smoothly pull fluid toward mouse if near surface
@@ -110,10 +136,10 @@ function stepFluid() {
     h[i] -= mean;
   }
   
-  // Smooth the surface (gentler weighted average, 1 pass)
+  // Smooth the surface lightly: a full 1-2-1 blur every frame erased the small ripples
   let hSmooth = h.slice();
   for (let i = 1; i < N-1; i++) {
-    h[i] = 0.25 * hSmooth[i-1] + 0.5 * hSmooth[i] + 0.25 * hSmooth[i+1];
+    h[i] = 0.1 * hSmooth[i-1] + 0.8 * hSmooth[i] + 0.1 * hSmooth[i+1];
   }
   // Dampen the corners so they oscillate but stay near zero
   h[0] *= 0.7;
@@ -123,6 +149,7 @@ function stepFluid() {
   const maxH = canvas.height - minMargin - y0;
   for (let i = 0; i < N; i++) {
     if (h[i] > maxH) h[i] = maxH;
+    if (h[i] < -60) { h[i] = -60; v[i] *= 0.5; }
   }
 }
 
@@ -270,6 +297,7 @@ function updateDroplets() {
     d.vy *= 0.995;
     return d.y < canvas.height;
   });
+  if (droplets.length > 200) droplets.splice(0, droplets.length - 200);
 }
 
 // --- Export functions ---

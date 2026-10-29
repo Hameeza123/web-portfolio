@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('flame-on');</script>
   <style>
     :root {
       --bg: #fefdfb;
@@ -159,6 +160,10 @@
       clip-path: inset(0 0 260px 0);
     }
 
+    canvas.nujabes-accent { aspect-ratio: 1920 / 1200; }
+    .flame-on img.nujabes-accent { visibility: hidden; }
+    html:not(.flame-on) #flame-canvas { display: none; }
+
     /* ── Responsive ── */
     @media (max-width: 760px) {
       .hero-h1 { font-size: clamp(2rem, 6.4vw, 3rem); }
@@ -173,6 +178,7 @@
     <canvas id="fluid-canvas"></canvas>
   </div>
   <img class="nujabes-accent" src="photos/landing/nujabes.jpg" alt="" aria-hidden="true" />
+  <canvas id="flame-canvas" class="nujabes-accent" data-src="photos/landing/nujabes-cutout.webp" data-flip aria-hidden="true"></canvas>
 
   <header class="topbar">
     <a class="wordmark" href="landing.html">Hamza Hussain</a>
@@ -180,6 +186,7 @@
       <a href="about.html">About</a>
       <a href="projects.html">Projects</a>
       <a href="glass.html">GLASS</a>
+      <a href="photography.html">Photos</a>
     </nav>
   </header>
   <div class="divider"></div>
@@ -192,6 +199,7 @@
     </div>
 
   <script src="fluid-simulation.js"></script>
+  <script src="flame-bloom.js"></script>
   <script>
     function loop() {
       window.FluidSimulation.step();
@@ -208,8 +216,12 @@
       ['mousemove','mousedown','touchstart','touchmove'].forEach(e =>
         c.addEventListener(e, () => { lastInteraction = Date.now(); }, { passive: true })
       );
+      // only drop while the water is actually on screen: timers keep running in a background tab or
+      // when scrolled away, and the drops used to pile up and all land at once on return
+      let waterVisible = true;
+      new IntersectionObserver(([e]) => { waterVisible = e.isIntersecting; }).observe(c);
       function idleDrop() {
-        if (Date.now() - lastInteraction > 1400) {
+        if (!document.hidden && waterVisible && Date.now() - lastInteraction > 1400) {
           const canvas = window.FluidSimulation.getCanvas();
           if (canvas) {
             const count = 1 + Math.floor(Math.random() * 2);

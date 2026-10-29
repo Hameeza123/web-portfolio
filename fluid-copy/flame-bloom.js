@@ -1,4 +1,6 @@
-// Landing intro: the Nujabes painting rises out of flame, then sways like a branch in the wind.
+// The Nujabes painting rises out of flame, then sways like a branch in the wind.
+// Drives <canvas id="flame-canvas" data-src="…cutout.webp"> at whatever size CSS gives it; the artwork
+// fills the canvas height, left-aligned. Add data-flip when CSS mirrors the canvas (scaleX(-1)).
 (function () {
   const IMG_W = 1920, IMG_H = 1200;           // original artwork size (layout reference)
   const CUT_W = 1160, CUT_H = 900;            // cutout crop (top-left of the artwork)
@@ -12,6 +14,7 @@
   const frag = `
     precision highp float;
     uniform sampler2D uTex;
+    uniform sampler2D uOrder;  // burn order: distance along the shape from its right-hand tip (0..1)
     uniform vec2 uRes;       // canvas size in px
     uniform float uImgH;     // displayed artwork height in px
     uniform vec2 uCut;       // cutout extent in artwork-height units
@@ -85,12 +88,14 @@
       vec2 m = q - uMouse;
       qs -= m * 0.05 * exp(-dot(m, m) / 0.02) * sw;
 
-      // ── flame reveal: a front rising from the root, low parts first ──
+      // ── flame reveal: the front travels along the shape itself, from the right-hand tip
+      //    down and to the left, then left to the edge (see nujabes-order.png) ──
       // the fire's "gravity" points up and to the left: noise scrolls that way (+x, +y in noise space)
-      float front = clamp((T - 0.15) / ${REVEAL.toFixed(2)}, 0.0, 2.0) * 1.3 + 0.2;
-      float order = 0.55 * clamp(length(q - root) / 1.05, 0.0, 1.0) + 0.45 * (1.0 - q.y / 0.9);
+      float front = clamp((T - 0.1) / ${REVEAL.toFixed(2)}, 0.0, 2.0) * 1.3 - 0.04;
+      vec2 ouv = q / uCut;
+      float order = (ouv.x <= 1.0 && ouv.y <= 1.0) ? texture2D(uOrder, ouv).r : 1.0;
       float lick = fbm(q * vec2(5.0, 2.6) + vec2(T * 1.2, T * 3.0));
-      order += 0.18 * (lick - 0.5);
+      order += 0.12 * (lick - 0.5);
       float e = front - order;
 
       float heat = e > 0.0 ? exp(-e / 0.075) : 1.0;
@@ -151,7 +156,6 @@
   `;
 
   function init() {
-    const img = document.querySelector('img.full');
     const canvas = document.getElementById('flame-canvas');
     const fail = () => document.documentElement.classList.remove('flame-on');
     if (!canvas) return fail();
@@ -186,7 +190,7 @@
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
 
     const U = {};
-    ['uTex', 'uRes', 'uImgH', 'uCut', 'uT', 'uWind', 'uMouse', 'uStill'].forEach(n => { U[n] = gl.getUniformLocation(prog, n); });
+    ['uTex', 'uOrder', 'uRes', 'uImgH', 'uCut', 'uT', 'uWind', 'uMouse', 'uStill'].forEach(n => { U[n] = gl.getUniformLocation(prog, n); });
 
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 1 : 0;
     let dpr = 1, start = 0, wind = 0, windTarget = 0, lastX = null, lastMove = 0;
@@ -195,60 +199,75 @@
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      canvas.width = Math.round(innerWidth * dpr);
-      canvas.height = Math.round(innerHeight * dpr);
+      canvas.width = Math.round(canvas.clientWidth * dpr);
+      canvas.height = Math.round(canvas.clientHeight * dpr);
       gl.viewport(0, 0, canvas.width, canvas.height);
     }
     addEventListener('resize', resize);
     resize();
 
+    const flip = 'flip' in canvas.dataset;
     addEventListener('pointermove', ev => {
-      const h = innerHeight;
-      mouse[0] = ev.clientX / h;
-      mouse[1] = ev.clientY / h;
-      if (lastX !== null) windTarget = Math.max(-0.05, Math.min(0.05, windTarget + (ev.clientX - lastX) * 0.0004));
+      const rect = canvas.getBoundingClientRect();
+      const h = rect.height || innerHeight;
+      mouse[0] = (flip ? rect.right - ev.clientX : ev.clientX - rect.left) / h;
+      mouse[1] = (ev.clientY - rect.top) / h;
+      const dx = flip ? lastX - ev.clientX : ev.clientX - lastX;
+      if (lastX !== null) windTarget = Math.max(-0.05, Math.min(0.05, windTarget + dx * 0.0004));
       lastX = ev.clientX;
       lastMove = performance.now();
     }, { passive: true });
 
-    const tex = gl.createTexture();
-    const src = new Image();
-    src.onload = () => {
-      gl.bindTexture(gl.TEXTURE_2D, tex);
-      gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
-      try {
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src);
-      } catch (err) {
-        console.warn('flame-bloom:', err);
-        return fail();
-      }
+    function upload(unit, img, premultiply) {
+      gl.activeTexture(gl.TEXTURE0 + unit);
+      gl.bindTexture(gl.TEXTURE_2D, gl.createTexture());
+      gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, premultiply);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    }
+
+    // the painting cutout plus its burn-order map, e.g. nujabes-cutout.webp + nujabes-order.png
+    const src = new Image(), order = new Image();
+    let loaded = 0;
+    function ready() {
+      if (++loaded < 2) return;
+      try {
+        upload(0, src, true);
+        upload(1, order, false);
+      } catch (err) {
+        console.warn('flame-bloom:', err);
+        return fail();
+      }
       gl.uniform1i(U.uTex, 0);
+      gl.uniform1i(U.uOrder, 1);
       gl.uniform2f(U.uCut, CUT_W / IMG_H, CUT_H / IMG_H);
       gl.uniform1f(U.uStill, still);
       start = performance.now();
       document.documentElement.classList.add('flame-ready');
       requestAnimationFrame(frame);
-    };
-    src.onerror = fail;
+    }
+    src.onload = order.onload = ready;
+    src.onerror = order.onerror = fail;
+    const orderSrc = canvas.dataset.src.replace(/-cutout\.webp$/, '-order.png');
     if (location.protocol === 'file:') {
-      // browsers block WebGL from reading local files, so load the cutout as an inline data URL
+      // browsers block WebGL from reading local files, so load both images as inline data URLs
       const s = document.createElement('script');
       s.src = canvas.dataset.src.replace(/\.webp$/, '.js');
-      s.onload = () => { src.src = window.NUJABES_CUTOUT; };
+      s.onload = () => { src.src = window.NUJABES_CUTOUT; order.src = window.NUJABES_ORDER; };
       s.onerror = fail;
       document.head.appendChild(s);
     } else {
       src.src = canvas.dataset.src;
+      order.src = orderSrc;
     }
 
     function frame(now) {
       if (now - lastMove > 120) windTarget *= 0.96;
       wind += (windTarget - wind) * 0.04;
-      // displayed artwork matches the old <img>: full viewport height, left-aligned
+      // artwork fills the canvas height, left-aligned
       gl.uniform2f(U.uRes, canvas.width, canvas.height);
       gl.uniform1f(U.uImgH, canvas.height);
       gl.uniform1f(U.uT, isNaN(freezeT) ? (now - start) / 1000 : freezeT);
